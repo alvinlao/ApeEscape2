@@ -47,6 +47,8 @@ var onConnect = function(socket) {
             if(lobbyReady){
                 io.emit("game_start",true);
             }
+
+            io.emit("lobby_players",lobb.getLobby());
         });
     }
 
