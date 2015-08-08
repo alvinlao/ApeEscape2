@@ -25,13 +25,13 @@ var onConnect = function(socket) {
         if(lobby.isInGame){
             io.send("lobby_players", {
                 players: lobby.getLobby(),
-                isInGame: true
+                isInGame: lobby.isInGame
             })
         } else {
             //Still waiting in lobby, tell everyone who joined
             io.emit("lobby_players",{
                 players: lobby.getLobby(),
-                isInGame: false
+                isInGame: lobby.isInGame
             });
         }
     }
@@ -45,7 +45,10 @@ var onConnect = function(socket) {
         }
 
         //Update everyone else
-        io.emit("lobby_players",lobby.getLobby());
+        io.emit("lobby_players",{
+            players: lobby.getLobby(),
+            isInGame: lobby.isInGame
+        });
         console.log("IO Connection Closed.".green);
     }
 
@@ -55,10 +58,14 @@ var onConnect = function(socket) {
     var onReady = function(socket){
         lobby.playerReady(player,function(lobbyReady){
             if(lobbyReady){
+                lobby.isInGame = true;
                 io.emit("game_start",true);
             }
 
-            io.emit("lobby_players",lobby.getLobby());
+            io.emit("lobby_players",{
+                players: lobby.getLobby(),
+                isInGame: lobby.isInGame
+            });
         });
     }
 
