@@ -1,5 +1,5 @@
 var colors	= require("colors");
-var User 	= require("./User");
+var User 	= require("./models/User");
 
 
 //Array of User objects
