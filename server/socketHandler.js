@@ -32,6 +32,9 @@ var onConnect = function(socket) {
         if(user){
             lobby.removeUser(user);
         }
+
+        //Update everyone else
+        io.emit("lobby_players",lobby.getLobby());
         console.log("IO Connection Closed.".green);
     }
 
