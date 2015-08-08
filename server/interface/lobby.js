@@ -1,31 +1,31 @@
 var colors  = require("colors");
-var User    = require("../models/User");
+var Player    = require("../models/Player");
 
 
-//Array of User objects
+//Array of Player objects
 var mainLobby = [];
 
 /*
- * Upon connecting to the lobby, add the user
- * @param user      User object to add to the lobby
+ * Upon connecting to the lobby, add the player
+ * @param player      Player object to add to the lobby
  */
-var addUser = function(user){
-    mainLobby.push(user);
-    console.log(user.name + " has joined the lobby. [".magenta + mainLobby.length + "]".magenta);
+var addPlayer = function(player){
+    mainLobby.push(player);
+    console.log(player.name + " has joined the lobby. [".magenta + mainLobby.length + "]".magenta);
 }
 
 /*
- * Upon dropping connection, remove a user from the lobby
- * @param user      User object to remove from the lobby
+ * Upon dropping connection, remove a player from the lobby
+ * @param player      Player object to remove from the lobby
  */
-var removeUser = function(removeUser){
+var removePlayer = function(removePlayer){
     for(var i=0;i<mainLobby.length;i++){
-        if(mainLobby[i].name === removeUser.name){
+        if(mainLobby[i].name === removePlayer.name){
             mainLobby.splice(i,1);
             break;
         }
     }
-    console.log(removeUser.name + " has left the lobby. [".magenta + mainLobby.length + "]".magenta);
+    console.log(removePlayer.name + " has left the lobby. [".magenta + mainLobby.length + "]".magenta);
 }
 
 /*
@@ -56,7 +56,7 @@ var readyPlayerCount = function(){
 
 /*
  * isReady
- * returns true if all users are ready.
+ * returns true if all players are ready.
  */
 var isReady = function(){
     //Make sure we have at least 2 players
@@ -77,14 +77,14 @@ var isReady = function(){
 }
 
 /*
- * Get a list of users currently in the lobby
- * @return lobby    Array of User objects
+ * Get a list of players currently in the lobby
+ * @return lobby    Array of Player objects
  */
 var getLobby = function() {
     return mainLobby;
 }
 
-exports.addUser = addUser;
-exports.removeUser = removeUser;
+exports.addPlayer = addPlayer;
+exports.removePlayer = removePlayer;
 exports.getLobby = getLobby;
 exports.playerReady = playerReady;
