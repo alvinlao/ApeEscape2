@@ -9,6 +9,11 @@ h1 {
     font-size: 60px;
 }
 
+input, button {
+    margin: 0;
+    vertical-align: middle;
+}
+
 /*
  * LOBBY
  */
@@ -25,7 +30,24 @@ h1 {
 }
 
 #name-input {
-    width: 800px;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 18px;
+    width: 600px;
+}
+
+#name-submit {
+    box-sizing: border-box;
+    width: 100px;
+    height: 45px;
+
+    border: none;
+    color: white;
+    background-color: #1E66E3;
+}
+
+#name-submit:hover {
+    background-color: #528AEB;
 }
 
 /*
