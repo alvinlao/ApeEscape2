@@ -36,13 +36,35 @@ socketHandler.setupIO(httpServer);
 //Start server
 httpServer.listen(config.APP_PORT, config.APP_IP, function() {
     console.log(""
-        +"     _                 _____                            ____  \n".blue
-        +"    / \\   _ __   ___  | ____|___  ___ __ _ _ __   ___  |___ \\ \n".blue
-        +"   / _ \\ | '_ \\ / _ \\ |  _| / __|/ __/ _` | '_ \\ / _ \\   __) |\n".blue
-        +"  / ___ \\| |_) |  __/ | |___\\__ \\ (_| (_| | |_) |  __/  / __/ \n".blue
-        +" /_/   \\_\\ .__/ \\___| |_____|___/\\___\\__,_| .__/ \\___| |_____|\n".blue
-        +"         |_|                              |_|                 ".blue
+        +"     _                 _____                            ".blue.bold + "____  \n".red.bold
+        +"    / \\   _ __   ___  | ____|___  ___ __ _ _ __   ___  ".blue.bold + "|___ \\ \n".red.bold
+        +"   / _ \\ | '_ \\ / _ \\ |  _| / __|/ __/ _` | '_ \\ / _ \\   ".blue.bold + "__) |\n".red.bold
+        +"  / ___ \\| |_) |  __/ | |___\\__ \\ (_| (_| | |_) |  __/  ".blue.bold + "/ __/ \n".red.bold
+        +" /_/   \\_\\ .__/ \\___| |_____|___/\\___\\__,_| .__/ \\___| ".blue.bold + "|_____|\n".red.bold
+        +"         |_|                              |_|                 ".blue.bold
     );
-    console.log('%s: Ape Escape 2 started on %s:%d ...',
-        Date(Date.now() ), config.APP_IP, config.APP_PORT);
+    console.log("Ape Escape 2 started on ".blue.bold + (config.APP_IP + config.APP_PORT).red.bold);
 });
+
+
+/*
+ * Error handling
+ */
+process.on("exit",function() {
+    terminator();
+});
+["SIGHUP", "SIGINT", "SIGQUIT", "SIGILL", "SIGTRAP", "SIGABRT","SIGBUS",
+    "SIGFPE", "SIGUSR1", "SIGSEGV", "SIGUSR2", "SIGTERM"]
+    .forEach(function(element,index,array){
+        process.on(element, function() {
+            terminator(element); 
+        });
+    });
+
+function terminator(reason){
+    if(typeof reason === "string"){
+        console.log("\n\nApe Escape 2 Recieved: ".blue.bold + reason.red.bold);
+        process.exit(1);
+    }
+    console.log("Ape Escape 2 Stopped.".blue.bold);
+}
