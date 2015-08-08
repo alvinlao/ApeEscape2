@@ -33,7 +33,7 @@ var removeUser = function(removeUser){
  * @return true if the lobby is ready, false if it's not.
  */
 var playerReady = function (readyPlayer,callback) {
-    readyPlayer.ready = true;
+    readyPlayer.isReady = true;
     console.log(readyPlayer.name + " is ready. ".magenta + "[" + readyPlayerCount() + "/" + mainLobby.length + "]");
     callback(isReady());
 }
@@ -46,7 +46,7 @@ var readyPlayerCount = function(){
     var count = 0;
     
     for(var i=0;i<mainLobby.length;i++){
-        if(mainLobby[i].ready){
+        if(mainLobby[i].isReady){
             count++;
         }
     }
@@ -66,7 +66,7 @@ var isReady = function(){
 
     //Make sure everyone is ready
     for(var i=0;i<mainLobby.length;i++){
-        if(!mainLobby[i].ready){
+        if(!mainLobby[i].isReady){
             return false;
         }
     }
