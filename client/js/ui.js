@@ -11,11 +11,16 @@
  */
 function updateLobbyPlayers(players) {
     var uiPlayers = $("#lobby-players");
-    var uiPlayer = "<li>{ playerName }</li>";
+    var uiPlayer = "<li><div class='lobby-indicator circle { isReady }'></div><span>{ playerName }</span></li>";
 
     uiPlayers.empty();
 
     players.forEach(function(player) {
-        uiPlayers.append(uiPlayer.replace("{ playerName }", player.name));
+        player.isReady = true;
+
+        var li = uiPlayer.replace("{ playerName }", player.name)
+            .replace("{ isReady }", player.isReady ? "indicator-ready" : "indicator-wait");
+
+        uiPlayers.append(li);
     });
 }

@@ -59,8 +59,64 @@ ul {
     background-color: #528AEB;
 }
 
+#lobby-players {
+    text-align: left;
+    width: 500px;
+    margin: 0 auto;
+}
+
+#lobby-players div {
+    vertical-align: middle;
+}
+
+#lobby-players span {
+    vertical-align: middle;
+}
+
+#lobby-players li {
+    margin: 10px 0;
+}
+
+#ready-button {
+    box-sizing: border-box;
+    width: 100px;
+    height: 45px;
+
+    border :none;
+    color: white;
+    background-color: #5BBD3A;
+}
+
+#ready-button:hover {
+    background-color: #58D130;
+}
+
+
 /*
  * GAME
  */
 #game {
+}
+
+/*
+ * MISC
+ */
+.circle {
+    border-radius: 50%;
+}
+
+.lobby-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+
+    margin-right: 20px;
+}
+
+.indicator-ready {
+    background-color: green;
+}
+
+.indicator-waiting {
+    background-color: yellow;
 }
