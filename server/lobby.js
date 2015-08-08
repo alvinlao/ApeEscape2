@@ -19,9 +19,12 @@ var addUser = function(user){
  * @param user 		User object to remove from the lobby
  */
 var removeUser = function(removeUser){
-	mainLobby = mainLobby.filter(function(usr){
-		return usr.name !== removeUser.name;
-	});
+	for(var i=0;i<mainLobby.length;i++){
+		if(mainLobby[i].name === removeUser.name){
+			mainLobby.splice(i,1);
+			break;
+		}
+	}
 	console.log(removeUser.name + " has left the lobby. [".magenta + mainLobby.length + "]".magenta);
 }
 
