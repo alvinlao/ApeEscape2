@@ -26,7 +26,8 @@
     "express": "~3.4.4",
     "async": "~1.4.1",
     "socket.io": "~1.3.6",
-    "colors": "~1.1.2"
+    "colors": "~1.1.2",
+    "mysql2": "~0.15.8"
   },
   "devDependencies": {},
   "bundleDependencies": [],

@@ -1,6 +1,9 @@
 .DS_Store
 *.swp
 
+# Ignore the sensitive config file
+server/config/config.js
+
 # Logs
 logs
 *.log

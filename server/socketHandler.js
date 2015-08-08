@@ -1,7 +1,7 @@
 var io      = require("socket.io");
 
 var lobby   = require("./lobby");
-var User    = require("./User.js");
+var User    = require("./models/User");
 
 
 /*
