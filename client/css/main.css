@@ -9,9 +9,18 @@ h1 {
     font-size: 60px;
 }
 
+h2 {
+    font-size: 40px;
+}
+
 input, button {
     margin: 0;
     vertical-align: middle;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
 }
 
 /*
