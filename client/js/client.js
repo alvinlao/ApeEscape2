@@ -3,7 +3,6 @@ var socket = io.connect(document.URL, {
     "reconnect": false
 });
 
-
 // FUNCTIONS
 
 // User submits their name
@@ -19,6 +18,7 @@ $("#name-form").on('submit', function (e) {
     }
 
     // Tell the server our name
+    state = STATE_LOBBY_WAITING;
     socket.emit("lobby_join", name);
 
     return false;
@@ -26,13 +26,21 @@ $("#name-form").on('submit', function (e) {
 
 // Ready button
 $("#ready-button").click(function (e) {
-    socket.emit("player_ready");
+    if (state === STATE_LOBBY_WAITING) {
+        console.log("Player ready");
+        socket.emit("player_ready");
+        state = STATE_LOBBY_READY;
+
+        UIReadyButton(true);
+    }
 });
 
 // Get list of players
 socket.on("lobby_players", function(players) {
-    $("#name-form").hide();
-    $("#lobby-wait").show();
+    if (state === STATE_LOBBY_WAITING || state === STATE_LOBBY_READY) {
+        UIHideAll();
+        $("#lobby-wait").show();
 
-    updateLobbyPlayers(players);
+        UIUpdateLobbyPlayers(players);
+    }
 });
