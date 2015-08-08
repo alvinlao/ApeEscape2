@@ -36,11 +36,30 @@ $("#ready-button").click(function (e) {
 });
 
 // Get list of players
-socket.on("lobby_players", function(players) {
+socket.on("lobby_players", function(response) {
     if (state === STATE_LOBBY_WAITING || state === STATE_LOBBY_READY) {
+        console.log("LOBBY UPDATE");
         UIHideAll();
-        $("#lobby-wait").show();
 
-        UIUpdateLobbyPlayers(players);
+        //if (response.isInGame) {
+            // Game started already
+         //   $("#game").show();
+        //} else {
+            // In lobby
+            $("#lobby-wait").show();
+        //}
+
+        UIUpdateLobbyPlayers(response);
+    }
+});
+
+// GAME IS STARTING...
+socket.on("game_start", function() {
+    if (state === STATE_LOBBY_READY) {
+        console.log("GAME START");
+        state = STATE_GAME;
+
+        UIHideAll();
+        $("#game").show();
     }
 });

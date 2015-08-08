@@ -21,8 +21,6 @@ function UIUpdateLobbyPlayers(players) {
     uiPlayers.empty();
 
     players.forEach(function(player) {
-        player.isReady = true;
-
         var li = uiPlayer.replace("{ playerName }", player.name)
             .replace("{ isReady }", player.isReady ? "indicator-ready" : "indicator-wait");
 
