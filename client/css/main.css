@@ -91,6 +91,10 @@ ul {
     background-color: #58D130;
 }
 
+#ready-button:disabled {
+    background-color: #919191;
+}
+
 
 /*
  * GAME
@@ -117,6 +121,6 @@ ul {
     background-color: green;
 }
 
-.indicator-waiting {
+.indicator-wait {
     background-color: yellow;
 }

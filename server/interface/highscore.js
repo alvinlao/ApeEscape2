@@ -1,6 +1,6 @@
 var colors = require("colors");
-var Score = require("./models/Score");
-var apeDB = require("./apeDB");
+var Score = require("../models/Score");
+var apeDB = require("../apeDB");
 
 /*
  * addHighscore
@@ -10,7 +10,7 @@ var apeDB = require("./apeDB");
 var addHighscore = function(score){
     apeDB.getConnection(function(err,connection){
         var highscoreData = [
-            score.user,
+            score.player,
             score.score,
             score.time
         ];
@@ -21,7 +21,7 @@ var addHighscore = function(score){
             if(err){
                 console.log("Failed to post highscore.".red);
             } else {
-                console.log(score.user + " just scored " + score.score + " points, with a time of " + score.time);
+                console.log(score.player + " just scored " + score.score + " points, with a time of " + score.time);
             }
         });
     });
@@ -35,7 +35,7 @@ var addHighscore = function(score){
  */
 var getHighscores = function(callback) {
     apeDB.getConnection(function(err,connection){
-        var getHighscoresQuery = "SELECT user,score,time FROM highscores LIMIT " + config.HIGHSCORE_SIZE;
+        var getHighscoresQuery = "SELECT player,score,time FROM highscores LIMIT " + config.HIGHSCORE_SIZE;
         connection.query(getHighscoresQuery,function(err,rows){
             if(err){
                 callback(err,null);
@@ -45,7 +45,7 @@ var getHighscores = function(callback) {
 
                 for(var i=0;i<rows.length;i++){
                     var score = new Score();
-                        score.user = rows[i].user;
+                        score.player = rows[i].player;
                         score.score = rows[i].score;
                         score.time = rows[i].time;
                     highscores.push(score);

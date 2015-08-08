@@ -1,7 +1,8 @@
-var io      = require("socket.io");
+var io          = require("socket.io");
 
-var lobby   = require("./lobby");
-var User    = require("./models/User");
+var lobby       = require("./interface/lobby");
+var highscores  = require("./interface/highscore");
+var Player        = require("./models/Player");
 
 
 /*
@@ -11,26 +12,26 @@ var onConnect = function(socket) {
     console.log("Connection Recieved.".green);
     var self = this;
 
-    //User object
-    var user;
+    //Player object
+    var player;
 
     /*
-     * When a user joins the lobby
+     * When a player joins the lobby
      */
-    var onLobbyJoin = function(userName){
-        user = new User(userName);
-        lobby.addUser(user);
+    var onLobbyJoin = function(playerName){
+        player = new Player(playerName);
+        lobby.addPlayer(player);
 
         //Update everyone else that they joined
         io.emit("lobby_players",lobby.getLobby());
     }
 
     /*
-     * When a user disconnects
+     * When a player disconnects
      */
     var onDisconnect = function(socket){
-        if(user){
-            lobby.removeUser(user);
+        if(player){
+            lobby.removePlayer(player);
         }
 
         //Update everyone else
@@ -38,8 +39,22 @@ var onConnect = function(socket) {
         console.log("IO Connection Closed.".green);
     }
 
+    /*
+     * When a player clicks "ready"
+     */
+    var onReady = function(socket){
+        lobby.playerReady(player,function(lobbyReady){
+            if(lobbyReady){
+                io.emit("game_start",true);
+            }
+
+            io.emit("lobby_players",lobby.getLobby());
+        });
+    }
+
     socket.on("lobby_join",onLobbyJoin);
     socket.on("disconnect",onDisconnect);
+    socket.on("player_ready",onReady);
 }
 
 /*
