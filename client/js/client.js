@@ -28,6 +28,7 @@ $("#name-form").on('submit', function (e) {
 $("#ready-button").click(function (e) {
     if (state === STATE_LOBBY_WAITING) {
         console.log("Player ready");
+
         socket.emit("player_ready");
         state = STATE_LOBBY_READY;
 
@@ -41,15 +42,16 @@ socket.on("lobby_players", function(response) {
         console.log("LOBBY UPDATE");
         UIHideAll();
 
-        //if (response.isInGame) {
+        if (response.isInGame) {
             // Game started already
-         //   $("#game").show();
-        //} else {
+            state = STATE_GAME;
+            $("#game").show();
+        } else {
             // In lobby
             $("#lobby-wait").show();
-        //}
+        }
 
-        UIUpdateLobbyPlayers(response);
+        UIUpdateLobbyPlayers(response.players);
     }
 });
 
