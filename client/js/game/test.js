@@ -29,11 +29,8 @@ function create() {
     map = game.add.tilemap('mario');
 
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
-
-    //  14 = ? block
-    map.setCollisionBetween(14, 15);
-
-    map.setCollisionBetween(15, 16);
+    
+    map.setCollisionBetween(14, 16);
     map.setCollisionBetween(20, 25);
     map.setCollisionBetween(27, 29);
     map.setCollision(40);
