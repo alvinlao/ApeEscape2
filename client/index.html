@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<script type="text/javascript" src="js/lib/phaser.min.js"></script>
-		<script type="text/javascript" src="js/lib/socket.io.min.js"></script>
-		<script type="text/javascript" src="js/test.js"></script>
-		<script type="text/javascript" src="js/client.js"></script>
-	</head>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 
-	<body>
-		Peter is awesome
-	</body>
+    <script type="text/javascript" src="js/lib/phaser.min.js"></script>
+    <script type="text/javascript" src="js/lib/socket.io.min.js"></script>
+    <script type="text/javascript" src="js/test.js"></script>
+    <script type="text/javascript" src="js/client.js"></script>
+</head>
+
+<body>
+    <div id="lobby">
+        <h1>Ape Escape 2</h1>
+
+        <div id="prompt-name">
+            <input id="name-input" placeholder="What's your name?" />
+        </div>
+
+        <div id="wait">
+            <ul id="waiting-players">
+                <li>Alvin</li>
+                <li>Grace</li>
+                <li>Greg</li>
+                <li>Peter</li>
+                <li>Niko</li>
+                <li>Peter</li>
+            </ul>
+        </div>
+    </div>
+    <div id="game">
+    </div>
+</body>
 
 </html>

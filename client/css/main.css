@@ -1,0 +1,35 @@
+body {
+    width: 1200px;
+    margin: 0 auto;
+
+    font-family: "Arial", "sans-serif";
+}
+
+h1 {
+    font-size: 60px;
+}
+
+/*
+ * LOBBY
+ */
+#lobby {
+    text-align: center;
+}
+
+#title {
+}
+
+#prompt-name {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#name-input {
+    width: 800px;
+}
+
+/*
+ * GAME
+ */
+#game {
+}
