@@ -20,7 +20,7 @@ var addUser = function(user){
  */
 var removeUser = function(removeUser){
 	mainLobby = mainLobby.filter(function(usr){
-		return mainLobby.indexOf(usr.name) === removeUser.name;
+		return mainLobby.indexOf(usr.name) === -1;
 	});
 	console.log(removeUser.name + " has left the lobby. [".magenta + mainLobby.length + "]".magenta);
 }
