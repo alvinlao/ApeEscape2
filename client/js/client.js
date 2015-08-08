@@ -28,6 +28,7 @@ $("#name-form").on('submit', function (e) {
 $("#ready-button").click(function (e) {
     if (state === STATE_LOBBY_WAITING) {
         console.log("Player ready");
+
         socket.emit("player_ready");
         state = STATE_LOBBY_READY;
 
@@ -43,6 +44,7 @@ socket.on("lobby_players", function(response) {
 
         if (response.isInGame) {
             // Game started already
+            state = STATE_GAME;
             $("#game").show();
         } else {
             // In lobby
