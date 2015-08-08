@@ -2,6 +2,10 @@
 var express = require("express");
 var fs      = require("fs");
 var colors  = require("colors");
+var http    = require("http");
+
+//Our modules
+var socketHandler = require("./server/socketHandler");
 
 //Config
 var config  = require("./server/config/config");
@@ -24,8 +28,13 @@ apeApp.use(express.static('client'));
 
 //Set up the endpoints
 
+
+//Setup socket.io
+var httpServer = http.Server(apeApp)
+socketHandler.setupIO(httpServer);
+
 //Start server
-apeApp.listen(config.APP_PORT, config.APP_IP, function() {
+httpServer.listen(config.APP_PORT, config.APP_IP, function() {
     console.log(""
         +"     _                 _____                            ____  \n".blue
         +"    / \\   _ __   ___  | ____|___  ___ __ _ _ __   ___  |___ \\ \n".blue
