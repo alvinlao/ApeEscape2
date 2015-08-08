@@ -1,6 +1,6 @@
 var colors = require("colors");
-var Score = require("./models/Score");
-var apeDB = require("./apeDB");
+var Score = require("../models/Score");
+var apeDB = require("../apeDB");
 
 /*
  * addHighscore

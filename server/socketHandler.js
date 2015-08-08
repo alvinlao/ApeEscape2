@@ -1,7 +1,8 @@
-var io      = require("socket.io");
+var io          = require("socket.io");
 
-var lobby   = require("./lobby");
-var User    = require("./models/User");
+var lobby       = require("./interface/lobby");
+var highscores  = require("./interface/highscore");
+var User        = require("./models/User");
 
 
 /*
@@ -38,8 +39,20 @@ var onConnect = function(socket) {
         console.log("IO Connection Closed.".green);
     }
 
+    /*
+     * When a user clicks "ready"
+     */
+    var onReady = function(socket){
+        lobby.playerReady(user,function(lobbyReady){
+            if(lobbyReady){
+                io.emit("game_start",true);
+            }
+        });
+    }
+
     socket.on("lobby_join",onLobbyJoin);
     socket.on("disconnect",onDisconnect);
+    socket.on("player_ready",onReady);
 }
 
 /*
