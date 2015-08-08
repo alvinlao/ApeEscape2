@@ -41,15 +41,15 @@ socket.on("lobby_players", function(response) {
         console.log("LOBBY UPDATE");
         UIHideAll();
 
-        //if (response.isInGame) {
+        if (response.isInGame) {
             // Game started already
-         //   $("#game").show();
-        //} else {
+            $("#game").show();
+        } else {
             // In lobby
             $("#lobby-wait").show();
-        //}
+        }
 
-        UIUpdateLobbyPlayers(response);
+        UIUpdateLobbyPlayers(response.players);
     }
 });
 
