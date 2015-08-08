@@ -24,9 +24,15 @@ $("#name-form").on('submit', function (e) {
     return false;
 });
 
+// Ready button
+$("#ready-button").click(function (e) {
+    socket.emit("player_ready");
+});
+
 // Get list of players
-socket.on("lobby_players", function(res) {
-    console.log(res);
+socket.on("lobby_players", function(players) {
     $("#name-form").hide();
-    $("#wait").show();
+    $("#lobby-wait").show();
+
+    updateLobbyPlayers(players);
 });
