@@ -1,0 +1,57 @@
+body {
+    width: 1200px;
+    margin: 0 auto;
+
+    font-family: "Arial", "sans-serif";
+}
+
+h1 {
+    font-size: 60px;
+}
+
+input, button {
+    margin: 0;
+    vertical-align: middle;
+}
+
+/*
+ * LOBBY
+ */
+#lobby {
+    text-align: center;
+}
+
+#title {
+}
+
+#prompt-name {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#name-input {
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 18px;
+    width: 600px;
+}
+
+#name-submit {
+    box-sizing: border-box;
+    width: 100px;
+    height: 45px;
+
+    border: none;
+    color: white;
+    background-color: #1E66E3;
+}
+
+#name-submit:hover {
+    background-color: #528AEB;
+}
+
+/*
+ * GAME
+ */
+#game {
+}
