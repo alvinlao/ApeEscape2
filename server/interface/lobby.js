@@ -5,6 +5,9 @@ var Player    = require("../models/Player");
 //Array of Player objects
 var mainLobby = [];
 
+//True if the game is currently going on, false otherwise
+var isInGame = false;
+
 /*
  * Upon connecting to the lobby, add the player
  * @param player      Player object to add to the lobby
@@ -88,3 +91,4 @@ exports.addPlayer = addPlayer;
 exports.removePlayer = removePlayer;
 exports.getLobby = getLobby;
 exports.playerReady = playerReady;
+exports.isInGame = isInGame;
