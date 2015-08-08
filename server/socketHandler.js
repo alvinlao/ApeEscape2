@@ -23,7 +23,7 @@ var onConnect = function(socket) {
         lobby.addPlayer(player);
 
         if(lobby.isInGame){
-            io.send("lobby_players", {
+            socket.emit("lobby_players", {
                 players: lobby.getLobby(),
                 isInGame: lobby.isInGame
             })
