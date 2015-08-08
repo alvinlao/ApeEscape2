@@ -22,8 +22,18 @@ var onConnect = function(socket) {
         player = new Player(playerName);
         lobby.addPlayer(player);
 
-        //Update everyone else that they joined
-        io.emit("lobby_players",lobby.getLobby());
+        if(lobby.isInGame){
+            io.send("lobby_players", {
+                players: lobby.getLobby(),
+                isInGame: true
+            })
+        } else {
+            //Still waiting in lobby, tell everyone who joined
+            io.emit("lobby_players",{
+                players: lobby.getLobby(),
+                isInGame: false
+            });
+        }
     }
 
     /*
