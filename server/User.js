@@ -1,3 +1,3 @@
-exports = function User(name) {
+module.exports = function User(name) {
 	this.name = name;
 }

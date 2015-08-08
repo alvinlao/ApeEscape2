@@ -1,7 +1,8 @@
 var io      = require("socket.io");
 
 var lobby   = require("./lobby");
-var User    = require("./User");
+var User    = require("./User.js");
+
 
 /*
  * On Establishing a connection with socket.io from client
@@ -21,14 +22,16 @@ var onConnect = function(socket) {
         lobby.addUser(user);
 
         //Update everyone else that they joined
-        io.emit("lobby_players",lobby.getLobby);
+        io.emit("lobby_players",lobby.getLobby());
     }
 
     /*
      * When a user disconnects
      */
     var onDisconnect = function(socket){
-        lobby.removeUser(user)
+        if(user){
+            lobby.removeUser(user);
+        }
         console.log("IO Connection Closed.".green);
     }
 
