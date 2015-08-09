@@ -1,12 +1,12 @@
 (function UIInit() {
     UIHideAll();
-    $("#name-form").show();
+    $("#askName").show();
 })();
 
 // Hide all UI screens
 function UIHideAll() {
-    $("#name-form").hide();
-    $("#lobby-wait").hide();
+    $("#askName").hide();
+    $("#lobby").hide();
     $("#game").hide();
     $("#leaderboard").hide();
 }
