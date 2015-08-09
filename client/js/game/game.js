@@ -11,17 +11,18 @@ var game = new Game();
 function preload() {
 	game.stage.backgroundColor = '#85b5e1';
 
-    game.load.tilemap('level1', 'js/game/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1', 'js/game/levels/level1/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
     game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
+    game.load.image('fireTrap', 'assets/diamond.png');
 }
 
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.stage.backgroundColor = '#000000';
+    game.stage.backgroundColor = '#ffffff';
 
     map = game.add.tilemap('level1');
 
@@ -36,7 +37,8 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer3 = map.createLayer('FinishLine');
+    layer2.visible = false;
+    //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
     layer1.debug = true;
@@ -45,6 +47,8 @@ function create() {
 
     ape = new Ape(game, 19, 1000, "ape");
     game.add.existing(ape);
+    //add the traps
+    parseMap(STAGE_01);
 
     game.physics.enable(ape);
 
@@ -74,6 +78,12 @@ function update() {
     game.physics.arcade.collide(ape, layer1);
 
     move(ape);
+
+    //socket call mock
+    //activateTrap(trap);
+}
+
+function activateTrap(trap){
 
 }
 
