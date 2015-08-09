@@ -15,7 +15,7 @@ exports.addPlayer = function(playerName,socket){
     });
 
     //Let everyone else know
-    io.send("lobby_state",gameState.getLobbyState());
+    io.emit("lobby_state",gameState.getLobbyState());
 
     var playerReady = function(){
         //Make the player ready
