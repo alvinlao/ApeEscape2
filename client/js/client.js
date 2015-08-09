@@ -46,6 +46,8 @@ socket.on("ape_state", function(response) {
     if (!myID) {
         return;
     }
+    
+    console.log(response);
 
     // Update state
     state = response.state;
