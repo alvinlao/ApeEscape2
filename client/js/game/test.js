@@ -10,14 +10,14 @@ function preload() {
 
 }
 
-var gravity = 700;
-var gravityDecrease = 30;
-var jumpPower = 500;
+var gravity = 2000;
+var gravityDecrease = 1000;
+var jumpPower = 700;
 
 var map;
 var tileset;
 var layer;
-var p;
+var ape;
 var cursors;
 
 function create() {
@@ -30,10 +30,7 @@ function create() {
 
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
-    //  14 = ? block
-    map.setCollisionBetween(14, 15);
-
-    map.setCollisionBetween(15, 16);
+    map.setCollisionBetween(14, 16);
     map.setCollisionBetween(20, 25);
     map.setCollisionBetween(27, 29);
     map.setCollision(40);
@@ -45,40 +42,41 @@ function create() {
 
     layer.resizeWorld();
 
-    p = game.add.sprite(32, 32, 'player');
+    ape = game.add.sprite(32, 32, 'player');
 
-    game.physics.enable(p);
+
+    game.physics.enable(ape);
 
     game.physics.arcade.gravity.y = gravity;
 
-    p.body.bounce.y = 0.05;
-    p.body.linearDamping = 0;
-    p.body.collideWorldBounds = true;
+    ape.body.bounce.y = 0.05;
+    ape.body.linearDamping = 0;
+    ape.body.collideWorldBounds = true;
 
-    game.camera.follow(p);
+    game.camera.follow(ape);
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    p.inputEnabled = true;
-	p.input.useHandCursor = true; //if you want a hand cursor
-	p.events.onInputDown.add(yourFunction, this);
+    ape.inputEnabled = true;
+	ape.input.useHandCursor = true; //if you want a hand cursor
+	ape.events.onInputDown.add(yourFunction, this);
 
 	function yourFunction(event, sprite)
 	{
-		p.body.velocity.y -= 200;
+		ape.body.velocity.y -= 200;
 	}
 
 }
 
 function update() {
 
-    game.physics.arcade.collide(p, layer);
+    game.physics.arcade.collide(ape, layer);
 
-    p.body.velocity.x = 0;
+    ape.body.velocity.x = 0;
 
     if (cursors.up.isDown) {
-        if (p.body.onFloor()) {
-            p.body.velocity.y = -jumpPower;
+        if (ape.body.onFloor()) {
+            ape.body.velocity.y = -jumpPower;
         } else{
             game.physics.arcade.gravity.y = gravity - gravityDecrease;
         }
@@ -86,21 +84,21 @@ function update() {
     else{
         game.physics.arcade.gravity.y = gravity;
     }
-    if (cursors.down.isDown && !p.body.onFloor()) {
-        p.body.velocity.y += gravityDecrease;
+    if (cursors.down.isDown && !ape.body.onFloor()) {
+        game.physics.arcade.gravity.y = gravity + gravityDecrease;
     }
 
     if (cursors.left.isDown) {
-        p.body.velocity.x = -150;
+        ape.body.velocity.x = -150;
     } else if (cursors.right.isDown) {
-        p.body.velocity.x = 150;
+        ape.body.velocity.x = 150;
     }
 
 }
 
 function render() {
 
-    // game.debug.body(p);
-    // game.debug.bodyInfo(p, 32, 320);
+    // game.debug.body(ape);
+    // game.debug.bodyInfo(ape, 32, 320);
 
 }
