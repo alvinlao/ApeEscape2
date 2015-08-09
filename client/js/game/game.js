@@ -45,7 +45,7 @@ function create() {
     layer1.resizeWorld();
 
     //add the traps
-    parseMap();
+    parseMap(STAGE_01);
 
     ape = game.add.sprite(19, 1000, 'player');
 
