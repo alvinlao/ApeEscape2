@@ -66,7 +66,7 @@ var readyPlayerCount = function(){
  */
 var isReady = function(){
     //Make sure we have at least 2 players
-    if(mainLobby.length<2){
+    if(mainLobby.length<1){
         return false;
     }
 
