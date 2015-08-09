@@ -1,3 +1,15 @@
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+
+function preload() {
+	game.stage.backgroundColor = '#85b5e1';
+
+    game.load.tilemap('level1', 'js/game/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'assets/tilesheet.png');
+    game.load.image('player', 'assets/phaser-dude.png');
+
+
+}
+
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -48,4 +60,28 @@ function create() {
         ape.body.velocity.y -= 200;
     }
 
+}
+
+function update() {
+
+    game.physics.arcade.collide(ape, layer1);
+
+    move(ape);
+
+}
+
+function move(ape) {
+	ape.body.velocity.x = 0;
+
+    if (cursors.up.isDown) {
+        if (ape.body.onFloor()) {
+            ape.body.velocity.y = -jumpPower;
+        }
+    }
+
+    if (cursors.left.isDown) {
+        ape.body.velocity.x = -speed;
+    } else if (cursors.right.isDown) {
+        ape.body.velocity.x = speed;
+    }
 }
