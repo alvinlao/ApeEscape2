@@ -25,19 +25,18 @@ $("#name-form").on('submit', function (e) {
 });
 
 // Ready button
-$("#ready-button").click(function (e) {
+function readyUp(context) {
     if (playerState === PLAYER_STATE_WAITING) {
         console.log("Player ready");
 
         socket.emit("player_ready");
         playerState = PLAYER_STATE_READY;
-
-        UIReadyButton(true);
     }
-});
+}
 
 // Find out who I am
 socket.on("me", function(player) {
+    console.log("ME");
     myID = player.id;
 });
 
