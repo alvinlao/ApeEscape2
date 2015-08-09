@@ -1,6 +1,7 @@
 var colors      = require("colors");
 var Player      = require("../models/Player");
-var STATE       = require ("../models/GameState");
+var Ape         = require("../models/Ape");
+var STATE       = require("../models/GameState");
 
 
 //Array of Player objects
@@ -8,6 +9,9 @@ var mainLobby = [];
 
 //Current state
 var state = STATE.LOBBY;
+
+//Game State is held in the player objects and here:
+var traps = [];
 
 /*
  * Upon connecting to the lobby, add the player
@@ -83,6 +87,25 @@ var isReady = function(){
 }
 
 /*
+ * Start Game
+ */
+var startGame = function() {
+
+    //Assign players
+    var theApe = ParseInt(Math.random()*mainLobby.length);
+    for(var i=0;i<mainLobby.length;i++){
+        if(i === theApe){
+            mainLobby[i].isApe();
+        } else {
+            mainLobby[i].isJailer();
+        }
+    }
+
+    //Start the game
+    state = STATE.GAME;
+}
+
+/*
  * Get a list of players currently in the lobby (information returned based on state)
  * @return lobby    Array of Player objects
  */
@@ -110,10 +133,16 @@ var getLobby = function() {
 }
 
 var getGameState = function() {
-    return {
+    var currentState = {
         state: state,
         players: getLobby()
+    };
+
+    if(state === STATE.GAME){
+        currentState.traps = traps;
     }
+
+    return currentState;
 }
 
 exports.addPlayer = addPlayer;
