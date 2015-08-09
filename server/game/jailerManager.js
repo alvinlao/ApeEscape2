@@ -1,34 +1,37 @@
-var lobby = require("../interface/lobby");
+var io = require("socket.io");
+
+var traps = [];
+
+var setupTraps = function(levelTraps){
+    traps = levelTraps;
+}
 
 var setupEvents = function(player, socket){
-	/*
-	 * Event: jailer_move
-	 */
+    /*
+     * Event: jailer_move
+     */
 
-	var jailerMove = function(position){
-		player.gameState.x = position.x;
-		player.gameState.y = position.y;
-	}
+    var jailerMove = function(position){
+        player.gameState.x = position.x;
+        player.gameState.y = position.y;
+    }
 
-	/*
-	 * Event: trap_click
-	 */
+    /*
+     * Event: trap_click
+     */
 
-	var trapClick = function(trapNumber){
-		lobby.clickTrap(trapNumber);
-	}
+    var trapClick = function(trapNumber){
+        if(traps[trapNumber].clicks > 0){
+            traps[trapNumber]--;
+            if(traps[trapNumber]){
+                io.emit("trap_activated",trapNumber);
+            }
+        }
+    }
 
-	/*
-	 * Event: ape_death
-	 */
-
-	var apeDeath = function(){
-		lobby.apeDeath;
-	}
-
-	socket.on("jailer_move",jailerMove);
-	socket.on("trap_click",trapClick);
-	socket.on("ape_death",apeDeath);
+    socket.on("jailer_move",jailerMove);
+    socket.on("trap_click",trapClick);
+    socket.on("ape_death",apeDeath);
 }
 
 exports.setupEvents = setupEvents;
