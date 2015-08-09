@@ -18,7 +18,7 @@ $("#name-form").on('submit', function (e) {
     }
 
     // Tell the server our name
-    state = STATE_LOBBY_WAITING;
+    playerState = PLAYER_STATE_WAITING;
     socket.emit("lobby_join", name);
 
     return false;
@@ -26,47 +26,40 @@ $("#name-form").on('submit', function (e) {
 
 // Ready button
 $("#ready-button").click(function (e) {
-    if (state === STATE_LOBBY_WAITING) {
+    if (playerState === PLAYER_STATE_WAITING) {
         console.log("Player ready");
 
         socket.emit("player_ready");
-        state = STATE_LOBBY_READY;
+        playerState = PLAYER_STATE_READY;
 
         UIReadyButton(true);
     }
 });
 
-// Get list of players
-socket.on("lobby_players", function(response) {
-    console.log(response);
-    if (state === STATE_LOBBY_WAITING || state === STATE_LOBBY_READY) {
-        console.log("LOBBY UPDATE");
-        UIHideAll();
-
-        if (response.isInGame) {
-            // Game started already
-            state = STATE_GAME;
-            $("#game").show();
-        } else {
-            // In lobby
-            $("#lobby-wait").show();
-        }
-
-        UIUpdateLobbyPlayers(response.players);
-    }
+// Find out who I am
+socket.on("me", function(player) {
+    myID = player.id;
 });
 
-// GAME IS STARTING...
-socket.on("game_start", function() {
-    if (state === STATE_LOBBY_READY) {
-        console.log("GAME START");
-        state = STATE_GAME;
+// Game update
+socket.on("ape_state", function(response) {
+    if (!myID) {
+        return;
+    }
 
-        UIHideAll();
+    // Update state
+    state = response.state;
+
+    UIHideAll();
+    if (state === STATE_LOBBY) {
+        $("#lobby").show();
+        UIUpdateLobbyPlayers(response.players);
+    } else if (state === STATE_GAME) {
         $("#game").show();
     }
 });
 
+// AJAX
 function getLeaderboard() {
     $.ajax("leaderboards", "GET")
         .done(function(response) {

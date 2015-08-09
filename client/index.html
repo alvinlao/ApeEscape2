@@ -11,22 +11,24 @@
 </head>
 
 <body>
-    <div id="lobby">
-        <h1 id="title">Ape Escape 2</h1>
+    <h1 id="title">Ape Escape 2</h1>
 
+    <div id="lobby">
+        <h2>Lobby</h2>
         <form id="name-form">
             <input id="name-input" placeholder="What's your name?" maxlength="20"/>
             <button id="name-submit">OK</button>
         </form>
 
         <div id="lobby-wait">
-            <h2>Lobby</h2>
             <ul id="lobby-players">
             </ul>
 
             <button id="ready-button">READY</button>
         </div>
+    </div>
 
+    <div id="game" align="center">
     </div>
 
     <div id="leaderboard">
@@ -39,9 +41,6 @@
             <li>Alvin</li>
             <li>Alvin</li>
         </ul>
-    </div>
-
-    <div id="game" align="center">
     </div>
 
     <script type="text/javascript" src="js/state.js"></script>
