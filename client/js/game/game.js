@@ -19,6 +19,9 @@ function preload() {
 
 function create() {
 
+    // TODO
+    currentStage = STAGE_01;
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     game.stage.backgroundColor = '#ffffff';
@@ -27,9 +30,6 @@ function create() {
 
     map.addTilesetImage('tilesheet', 'tiles');
 
-    //map.setCollisionBetween(0, 25);
-    //map.setCollisionBetween(35, 80);
-    //map.setCollisionBetween(27, 29);
     map.setCollision(5);
     map.setCollision(7);
     map.setCollision(14);
@@ -45,7 +45,7 @@ function create() {
     layer1.resizeWorld();
 
     //add the traps
-    parseMap(STAGE_01);
+    parseMap(currentStage);
 
     ape = game.add.sprite(19, 1000, 'player');
 
@@ -79,6 +79,39 @@ function update() {
 
     move(ape);
 
+    activeTraps.forEach(function (trap){
+        if (trap.expiryTime === 0){
+            trap.sprite.kill();
+            var index = activeTraps.indexOf(trap);
+            activeTraps.splice(index, 1);
+        } else {
+            trap.expiryTime--;
+        }
+    })
+
+}
+
+function activateTrap(trap) {
+
+    var width = currentStage.width;
+
+    var dx = currentStage.tilewidth;
+    var dy = currentStage.tileheight;
+
+    var i = trap.index;
+    var trapType = trap.type;
+
+    var x = dx * (i % width);
+    var y = dy * (Math.floor(i / width));
+
+    var expiryTime = 90;
+
+    var newTrap = {
+        "sprite": game.add.sprite(x, y, 'player'),
+        "expiryTime": expiryTime
+    };
+
+    activeTraps.push(newTrap);
 }
 
 function move(ape) {
