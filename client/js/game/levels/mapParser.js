@@ -25,8 +25,6 @@ function parseMap() {
 			traps.push(trap);
 		}
 	}
-
-	console.log(traps);
 }
 
 
