@@ -68,6 +68,7 @@ function create() {
 
     // Diamond
     diamond = game.add.sprite(800, 100, 'diamond');
+
     game.physics.arcade.enable(diamond);
     diamond.body.allowGravity = false;
     diamond.body.collideWorldBounds = true;

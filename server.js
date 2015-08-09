@@ -6,6 +6,7 @@ var http    = require("http");
 
 //Our modules
 var socketHandler = require("./server/socketHandler");
+var routeHandler = require("./server/routeHandler");
 
 //Config
 var config  = require("./server/config/config");
@@ -27,7 +28,7 @@ apeApp.use(apeApp.router);
 apeApp.use(express.static('client'));
 
 //Set up the endpoints
-
+routeHandler.setupEndpoints(apeApp);
 
 //Setup socket.io
 var httpServer = http.Server(apeApp)

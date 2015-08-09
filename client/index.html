@@ -11,37 +11,41 @@
 </head>
 
 <body>
-    <div id="lobby">
+    <div id="wrapper">
         <h1 id="title">Ape Escape 2</h1>
 
-        <form id="name-form">
-            <input id="name-input" placeholder="What's your name?" maxlength="20"/>
-            <button id="name-submit">OK</button>
-        </form>
-
-        <div id="lobby-wait">
-            <h2>Lobby</h2>
-            <ul id="lobby-players">
-            </ul>
-
-            <button id="ready-button">READY</button>
+        <div id="askName">
+            <h2>Enter Name</h2>
+            <form id="name-form">
+                <input id="name-input" placeholder="What's your name?" maxlength="20"/>
+                <button id="name-submit">OK</button>
+            </form>
         </div>
 
-    </div>
+        <div id="lobby">
+            <h2>Lobby</h2>
+            <div id="lobby-wait">
+                <ul id="lobby-players">
+                </ul>
 
-    <div id="leaderboard">
-        <h2>Leaderboard</h2>
-        <ul>
-            <li>Alvin</li>
-            <li>Alvin</li>
-            <li>Alvin</li>
-            <li>Alvin</li>
-            <li>Alvin</li>
-            <li>Alvin</li>
-        </ul>
-    </div>
+                <button id="ready-button">READY</button>
+            </div>
+        </div>
 
-    <div id="game" align="center">
+        <div id="game" align="center">
+        </div>
+
+        <div id="leaderboard">
+            <h2>Leaderboard</h2>
+            <ul>
+                <li>Alvin</li>
+                <li>Alvin</li>
+                <li>Alvin</li>
+                <li>Alvin</li>
+                <li>Alvin</li>
+                <li>Alvin</li>
+            </ul>
+        </div>
     </div>
 
     <script type="text/javascript" src="js/state.js"></script>

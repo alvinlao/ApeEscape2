@@ -1,12 +1,13 @@
-var colors  = require("colors");
-var Player    = require("../models/Player");
+var colors      = require("colors");
+var Player      = require("../models/Player");
+var STATE       = require ("../models/GameState");
 
 
 //Array of Player objects
 var mainLobby = [];
 
-//True if the game is currently going on, false otherwise
-var isInGame = false;
+//Current state
+var state = STATE.LOBBY;
 
 /*
  * Upon connecting to the lobby, add the player
@@ -35,10 +36,12 @@ var removePlayer = function(removePlayer){
  * playerReady
  * @return true if the lobby is ready, false if it's not.
  */
-var playerReady = function (readyPlayer,callback) {
+var playerReady = function (readyPlayer) {
     readyPlayer.isReady = true;
     console.log(readyPlayer.name + " is ready. ".magenta + "[" + readyPlayerCount() + "/" + mainLobby.length + "]");
-    callback(isReady());
+    if(isReady()){
+        state = STATE.GAME;
+    }
 }
 
 /*
@@ -80,15 +83,42 @@ var isReady = function(){
 }
 
 /*
- * Get a list of players currently in the lobby
+ * Get a list of players currently in the lobby (information returned based on state)
  * @return lobby    Array of Player objects
  */
 var getLobby = function() {
-    return mainLobby;
+    var formattedLobby = [];
+    for(var i=0;i<mainLobby.length;i++){
+        var player = {};
+
+        switch(state){
+            case STATE.LOBBY:
+                player = mainLobby[i].getLobbyInfo();
+                break;
+            case STATE.GAME:
+                player = mainLobby[i].getInGameInfo();
+                break;
+            case STATE.GAME_OVER:
+                player = mainLobby[i].getLobbyInfo();
+                break;
+        }
+
+        formattedLobby.push(player);
+    }
+
+    return formattedLobby;
+}
+
+var getGameState = function() {
+    return {
+        state: state,
+        players: getLobby()
+    }
 }
 
 exports.addPlayer = addPlayer;
 exports.removePlayer = removePlayer;
 exports.getLobby = getLobby;
 exports.playerReady = playerReady;
-exports.isInGame = isInGame;
+exports.state = state;
+exports.getGameState = getGameState;

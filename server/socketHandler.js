@@ -2,7 +2,8 @@ var io          = require("socket.io");
 
 var lobby       = require("./interface/lobby");
 var highscores  = require("./interface/highscore");
-var Player        = require("./models/Player");
+var Player      = require("./models/Player");
+var STATE       = require("./models/GameState");
 
 
 /*
@@ -12,7 +13,7 @@ var onConnect = function(socket) {
     console.log("Connection Recieved.".green);
     var self = this;
 
-    //Player object
+    //Player object (Unique to this connection)
     var player;
 
     /*
@@ -22,18 +23,10 @@ var onConnect = function(socket) {
         player = new Player(playerName);
         lobby.addPlayer(player);
 
-        if(lobby.isInGame){
-            socket.emit("lobby_players", {
-                players: lobby.getLobby(),
-                isInGame: lobby.isInGame
-            })
-        } else {
-            //Still waiting in lobby, tell everyone who joined
-            io.emit("lobby_players",{
-                players: lobby.getLobby(),
-                isInGame: lobby.isInGame
-            });
-        }
+        //Let the player know who they are
+        socket.emit("me",player);
+
+        updateState();
     }
 
     /*
@@ -42,31 +35,22 @@ var onConnect = function(socket) {
     var onDisconnect = function(socket){
         if(player){
             lobby.removePlayer(player);
+            updateState();
         }
 
-        //Update everyone else
-        io.emit("lobby_players",{
-            players: lobby.getLobby(),
-            isInGame: lobby.isInGame
-        });
         console.log("IO Connection Closed.".green);
     }
 
     /*
      * When a player clicks "ready"
      */
-    var onReady = function(socket){
-        lobby.playerReady(player,function(lobbyReady){
-            if(lobbyReady){
-                lobby.isInGame = true;
-                io.emit("game_start",true);
-            }
+    var onReady = function(socket) {
+        lobby.playerReady(player);
+        updateState();
+    }
 
-            io.emit("lobby_players",{
-                players: lobby.getLobby(),
-                isInGame: lobby.isInGame
-            });
-        });
+    var updateState = function() {
+        io.emit("ape_state",lobby.getGameState());
     }
 
     socket.on("lobby_join",onLobbyJoin);

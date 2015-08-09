@@ -7,7 +7,8 @@ var apeDB = require("../apeDB");
  * Add a highscore to the table.
  * @param score         The highscore to add (Score object)
  */
-var addHighscore = function(score){
+var addHighscore = function(req, res){
+    var score = req.body.score;
     apeDB.getConnection(function(err,connection){
         var highscoreData = [
             score.player,
@@ -33,12 +34,12 @@ var addHighscore = function(score){
  * @return          Error (null if no error)
  * @return          An array of Score objects (sorted)
  */
-var getHighscores = function(callback) {
+var getHighscores = function(req, res) {
     apeDB.getConnection(function(err,connection){
         var getHighscoresQuery = "SELECT player,score,time FROM highscores LIMIT " + config.HIGHSCORE_SIZE;
         connection.query(getHighscoresQuery,function(err,rows){
             if(err){
-                callback(err,null);
+                res.send();
             } else {
                 //Array of Score objects
                 var highscores = [];
@@ -51,8 +52,11 @@ var getHighscores = function(callback) {
                     highscores.push(score);
                 }
 
-                callback(null,highscores);
+                res.send(highscores);
             }
         });
     })
 }
+
+exports.getHighscores = getHighscores;
+exports.addHighscore = addHighscore;
