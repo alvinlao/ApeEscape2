@@ -23,21 +23,15 @@ ul {
     padding: 0;
 }
 
-/*
- * LOBBY
- */
-#lobby {
+#wrapper {
+    width: 800px;
+    margin: 0 auto;
     text-align: center;
 }
 
-#title {
-}
-
-#prompt-name {
-    width: 800px;
-    margin: 0 auto;
-}
-
+/*
+ * Name
+ */
 #name-input {
     box-sizing: border-box;
     padding: 10px;
@@ -59,6 +53,9 @@ ul {
     background-color: #528AEB;
 }
 
+/*
+ * LOBBY
+ */
 #lobby-wait {
     width: 500px;
     margin: 0 auto;
