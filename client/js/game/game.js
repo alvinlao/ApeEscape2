@@ -15,7 +15,6 @@ function preload() {
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
 
-
 }
 
 function create() {
@@ -44,6 +43,9 @@ function create() {
     layer1.debug = true;
 
     layer1.resizeWorld();
+
+    //add the traps
+    parseMap();
 
     ape = game.add.sprite(19, 1000, 'player');
 
