@@ -1,4 +1,4 @@
-var traps;
+/*var traps;
 function parseMap() {
 
 	//var mapData = JSON.parse(STAGE_01);
@@ -27,6 +27,6 @@ function parseMap() {
 	}
 
 }
-
+*/
 
 //trap object, contaning baseclicks and scaling number

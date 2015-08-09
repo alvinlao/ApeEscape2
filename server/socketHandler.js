@@ -4,6 +4,9 @@ var lobby       = require("./interface/lobby");
 var highscores  = require("./interface/highscore");
 var Player      = require("./models/Player");
 var STATE       = require("./models/GameState");
+var jailerManager = require("./game/jailerManager");
+var apeManager  = require("./game/apeManager");
+
 
 
 /*
@@ -24,7 +27,10 @@ var onConnect = function(socket) {
         lobby.addPlayer(player);
 
         //Let the player know who they are
-        socket.emit("me",player);
+        socket.emit("me",{
+            gameState: lobby.getGameState(),
+            me: player
+        });
 
         updateState();
     }
@@ -49,9 +55,16 @@ var onConnect = function(socket) {
         updateState();
     }
 
+    /*
+     * Called when anything happens
+     */
     var updateState = function() {
         io.emit("ape_state",lobby.getGameState());
     }
+
+    //Set up the in game events
+    jailerManager.setupEvents(player, socket);
+    apeManager.setupEvents(player, socket);
 
     socket.on("lobby_join",onLobbyJoin);
     socket.on("disconnect",onDisconnect);

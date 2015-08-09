@@ -35,13 +35,16 @@ function readyUp(context) {
 }
 
 // Find out who I am
-socket.on("me", function(player) {
-    console.log("ME");
-    myID = player.id;
+socket.on("me", function(response) {
+    myID = response.me.id;
+    handleGameStateUpdate(response.gameState);
 });
 
 // Game update
-socket.on("ape_state", function(response) {
+socket.on("ape_state", handleGameStateUpdate);
+
+// Handle game state update
+function handleGameStateUpdate(response) {
     if (!myID) {
         return;
     }
@@ -58,7 +61,8 @@ socket.on("ape_state", function(response) {
     } else if (state === STATE_GAME) {
         $("#game").show();
     }
-});
+}
+
 
 // AJAX
 function getLeaderboard() {
