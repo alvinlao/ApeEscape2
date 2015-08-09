@@ -38,6 +38,7 @@ $("#ready-button").click(function (e) {
 
 // Get list of players
 socket.on("lobby_players", function(response) {
+    console.log(response);
     if (state === STATE_LOBBY_WAITING || state === STATE_LOBBY_READY) {
         console.log("LOBBY UPDATE");
         UIHideAll();
@@ -65,3 +66,10 @@ socket.on("game_start", function() {
         $("#game").show();
     }
 });
+
+function getLeaderboard() {
+    $.ajax("leaderboards", "GET")
+        .done(function(response) {
+            UILeaderboard(response);
+        });
+}

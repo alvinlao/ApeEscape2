@@ -1,12 +1,14 @@
 (function UIInit() {
+    UIHideAll();
     $("#name-form").show();
-    $("#lobby-wait").hide();
 })();
 
 // Hide all UI screens
 function UIHideAll() {
     $("#name-form").hide();
     $("#lobby-wait").hide();
+    $("#game").hide();
+    $("#leaderboard").hide();
 }
 
 /*
@@ -32,4 +34,13 @@ function UIUpdateLobbyPlayers(players) {
 function UIReadyButton(disable) {
     // Change button to wait
     $("#ready-button").prop("disabled", disable);
+}
+
+function UILeaderboard(entries) {
+    entries.forEach(function(entry) {
+        console.log(entry);
+        entry.player;
+        entry.score;
+        entry.time;
+    });
 }

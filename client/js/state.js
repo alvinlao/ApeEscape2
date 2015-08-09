@@ -2,5 +2,6 @@ var STATE_UNNAMED = 0;
 var STATE_LOBBY_WAITING = 1;
 var STATE_LOBBY_READY = 2;
 var STATE_GAME = 3;
+var STATE_GAME_OVER = 4;
 
 var state = STATE_UNNAMED;
