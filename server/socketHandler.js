@@ -49,9 +49,13 @@ var onConnect = function(socket) {
         updateState();
     }
 
+    /*
+     * Called when anything happens
+     */
     var updateState = function() {
         io.emit("ape_state",lobby.getGameState());
     }
+
 
     socket.on("lobby_join",onLobbyJoin);
     socket.on("disconnect",onDisconnect);

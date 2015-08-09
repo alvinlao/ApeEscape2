@@ -8,6 +8,7 @@ module.exports = function Player(name) {
 
 	//In-Game data
 	this.isPlaying = false;
+	this.state = 0;
 
 	//Call to get the basic information of a user in the lobby
 	this.getLobbyInfo = function() {
