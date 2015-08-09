@@ -1,4 +1,6 @@
 function Jailer() {
+    Entity.call(this);
 }
 
-Jailer.prototype = Entity;
+Jailer.prototype = Object.create(Entity.prototype);
+Jailer.constructor = Jailer;

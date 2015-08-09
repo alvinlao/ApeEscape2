@@ -1,4 +1,12 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+// Our game
+function Game() {
+    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
+}
+
+Game.prototype = Object.create(Phaser.Game.prototype);
+Game.constructor = Game;
+
+var game = new Game();
 
 function preload() {
 	game.stage.backgroundColor = '#85b5e1';
