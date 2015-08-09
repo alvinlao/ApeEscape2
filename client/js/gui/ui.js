@@ -25,26 +25,26 @@ function UIUpdateLobbyPlayers(players) {
 
     // Make sure the current player is at the top of the list
     players.sort(function(a, b) {
-        if (a.id === myID) {
+        if (a.id === player.id) {
             return -1;
         }
-        if (b.id === myID) {
+        if (b.id === player.id) {
             return 1;
         }
         return 0;
     });
 
-    players.forEach(function(player) {
+    players.forEach(function(other) {
         var template;
 
-        if (player.id === myID) {
+        if (other.id === player.id) {
             template = uiMe;
         } else {
             template = uiPlayer;
         }
 
-        li = template.replace("{ playerName }", player.name)
-        .replace("{ isReady }", player.isReady ? "indicator-ready" : "indicator-wait");
+        li = template.replace("{ playerName }", other.name)
+        .replace("{ isReady }", other.isReady ? "indicator-ready" : "indicator-wait");
 
         uiPlayers.append(li);
     });

@@ -70,7 +70,6 @@ function create() {
     {
         ape.body.velocity.y -= 200;
     }
-
 }
 
 function update() {
