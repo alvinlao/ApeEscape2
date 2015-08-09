@@ -74,10 +74,17 @@ function create() {
 
 function update() {
 
+    var self = this;
+
     game.physics.arcade.collide(ape, layer1);
 
     move(ape);
-    
+
+    checkTraps(activeTraps);
+
+}
+
+function checkTraps(activeTraps) {
     activeTraps.forEach(function (trap){
         if (trap.expiryTime === 0){
             trap.sprite.kill();
@@ -85,9 +92,13 @@ function update() {
             activeTraps.splice(index, 1);
         } else {
             trap.expiryTime--;
+            game.physics.arcade.collide(ape, trap.sprite, die, null, self);
         }
-    })
+    });
+}
 
+var die = function die(){
+    ape.kill();
 }
 
 function activateTrap(trap) {
@@ -109,6 +120,9 @@ function activateTrap(trap) {
         "sprite": game.add.sprite(x, y, 'player'),
         "expiryTime": expiryTime
     };
+
+    game.physics.arcade.enable(newTrap.sprite);
+    newTrap.sprite.body.moves = false;
 
     activeTraps.push(newTrap);
 }
