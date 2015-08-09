@@ -1,14 +1,17 @@
+var playerID = 0;
+var Ape = require("./Ape");
+var Jailer = require("./Jailer");
+
 module.exports = function Player(name) {
 	//Upon creation, assign an ID
-	this.id = Math.random()*3000;
+	this.id = playerID++;
 
 	//Lobby data
 	this.name = name;
 	this.isReady = false;
 
-	//In-Game data
-	this.isPlaying = false;
-	this.state = 0;
+	//Either a Jailer or Ape object
+	this.gameState = {};
 
 	//Call to get the basic information of a user in the lobby
 	this.getLobbyInfo = function() {
@@ -19,11 +22,21 @@ module.exports = function Player(name) {
 		};
 	}
 
+	//This data is sent every time the game state is updated
 	this.getInGameInfo = function() {
 		return {
 			name: this.name,
 			id: this.id,
-			isPlaying: this.isPlaying
+			gameState: this.gameState
 		};
+	}
+
+	//Set on game start
+	this.isApe = function(){
+		this.gameState = new Ape();
+	}
+
+	this.isJailer = function(){
+		this.gameState = new Jailer();
 	}
 }

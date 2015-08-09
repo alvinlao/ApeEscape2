@@ -2,7 +2,6 @@ var colors      = require("colors");
 var Player      = require("../models/Player");
 var Ape         = require("../models/Ape");
 var STATE       = require("../models/GameState");
-var level       = require("./game/levels");
 
 
 //Array of Player objects
@@ -11,8 +10,7 @@ var mainLobby = [];
 //Current state
 var state = STATE.LOBBY;
 
-//Ingame
-var ape = new Ape();
+//Game State is held in the player objects and here:
 var traps = [];
 
 /*
@@ -92,42 +90,19 @@ var isReady = function(){
  * Start Game
  */
 var startGame = function() {
-    ape = new Ape();
-    traps = level.level1;
-}
 
-/*
- * Jailer clicks on trap
- */
-var clickTrap = function(trapNumber){
-    if(traps[trapNumber] > 0){
-        traps[trapNumber]--;
+    //Assign players
+    var theApe = ParseInt(Math.random()*mainLobby.length);
+    for(var i=0;i<mainLobby.length;i++){
+        if(i === theApe){
+            mainLobby[i].isApe();
+        } else {
+            mainLobby[i].isJailer();
+        }
     }
-}
 
-/*
- * Ape Move
- */
-var apeMove = function(updatedPosition){
-    ape.x = updatedPosition.x;
-    ape.y = updatedPosition.y;
-}
-
-/*
- * Shield
- */
-var apeShield = function(){
-    ape.shield = true;
-}
-
-/*
- * Dash
- */
-var apeDash = function(){
-    ape.dash = true;
-    setTimeout(function(){
-        ape.dash = false;
-    },2000);
+    //Start the game
+    state = STATE.GAME;
 }
 
 /*
@@ -163,9 +138,7 @@ var getGameState = function() {
         players: getLobby()
     };
 
-    //Hacky, but w/e
     if(state === STATE.GAME){
-        currentState.ape = ape;
         currentState.traps = traps;
     }
 
