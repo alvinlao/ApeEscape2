@@ -6,6 +6,7 @@ function preload() {
     game.load.tilemap('mario', 'js/game/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'js/game/super_mario.png');
     game.load.image('player', 'js/game/phaser-dude.png');
+    game.load.image('diamond', 'js/game/diamond.png');
 
 
 }
@@ -19,6 +20,7 @@ var tileset;
 var layer;
 var ape;
 var cursors;
+var diamond;
 
 function create() {
 
@@ -66,11 +68,30 @@ function create() {
 		ape.body.velocity.y -= 200;
 	}
 
+    //  Diamond
+    diamond = game.add.sprite(200, 300, 'diamond');
+    game.physics.arcade.enable(diamond);
+    diamond.body.collideWorldBounds = true;
+
+}
+
+function getDiamond (ape, diamond) {
+    var scale = 2;
+
+    game.stage.backgroundColor = '#000000';
+    diamond.kill();
+
+    ape.scale.set(scale);
+
 }
 
 function update() {
 
     game.physics.arcade.collide(ape, layer);
+
+
+    game.physics.arcade.collide(ape, diamond, getDiamond, null, this);
+
 
     ape.body.velocity.x = 0;
 
