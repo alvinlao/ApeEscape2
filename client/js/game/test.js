@@ -12,14 +12,13 @@ function preload() {
 }
 
 var gravity = 2000;
-var gravityDecrease = 1000;
-var jumpPower = 700;
+var gravityDecrease = 0;
+var jumpPower = 800;
 
 var map;
 var tileset;
 var layer;
 var ape;
-var jumpPowerUp;
 var cursors;
 var diamond;
 
@@ -61,16 +60,16 @@ function create() {
 
     ape.inputEnabled = true;
 	ape.input.useHandCursor = true; //if you want a hand cursor
-	ape.events.onInputDown.add(yourFunction, this);
+	ape.events.onInputDown.add(destroy, this);
 
-	function yourFunction(event, sprite)
-	{
-		ape.body.velocity.y -= 200;
+	function destroy (event, sprite) {
+		event.kill();
 	}
 
-    //  Diamond
-    diamond = game.add.sprite(200, 300, 'diamond');
+    // Diamond
+    diamond = game.add.sprite(800, 100, 'diamond');
     game.physics.arcade.enable(diamond);
+    diamond.body.allowGravity = false;
     diamond.body.collideWorldBounds = true;
 
 }
@@ -85,14 +84,26 @@ function getDiamond (ape, diamond) {
 
 }
 
+function jumpControlGet (ape, powerUp) {
+    powerUp.kill();
+
+    gravityDecrease = 1000;
+}
+
+function die (ape, trap) {
+    ape.kill();
+}
+
 function update() {
 
     game.physics.arcade.collide(ape, layer);
 
+    game.physics.arcade.collide(ape, diamond, jumpControlGet, null, this);
 
-    game.physics.arcade.collide(ape, diamond, getDiamond, null, this);
+    moveControl();
+}
 
-
+function moveControl() {
     ape.body.velocity.x = 0;
 
     if (cursors.up.isDown) {
@@ -114,7 +125,6 @@ function update() {
     } else if (cursors.right.isDown) {
         ape.body.velocity.x = 350;
     }
-
 }
 
 function render() {
