@@ -2,7 +2,7 @@ function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.stage.backgroundColor = '#000000';
+    game.stage.backgroundColor = '#ffffff';
 
     map = game.add.tilemap('level1');
 
@@ -17,7 +17,8 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer3 = map.createLayer('FinishLine');
+    layer2.visible = false;
+    //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
     layer1.debug = true;
