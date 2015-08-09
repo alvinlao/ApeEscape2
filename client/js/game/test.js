@@ -3,48 +3,53 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, cr
 function preload() {
 	game.stage.backgroundColor = '#85b5e1';
 
-    game.load.tilemap('mario', 'js/game/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'js/game/super_mario.png');
+    game.load.tilemap('level1', 'js/game/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'js/game/tilesheet.png');
     game.load.image('player', 'js/game/phaser-dude.png');
-    game.load.image('diamond', 'js/game/diamond.png');
 
 
 }
 
 var gravity = 2000;
-var gravityDecrease = 0;
-var jumpPower = 800;
+var gravityDecrease = 1000;
+var jumpPower = 700;
 
 var map;
 var tileset;
-var layer;
+var layer1;
+var layer2;
+var layer3;
 var ape;
 var cursors;
-var diamond;
 
 function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.stage.backgroundColor = '#787878';
+    game.stage.backgroundColor = '#000000';
 
-    map = game.add.tilemap('mario');
+    map = game.add.tilemap('level1');
 
-    map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
+    map.addTilesetImage('tilesheet', 'tiles');
 
-    map.setCollisionBetween(14, 16);
-    map.setCollisionBetween(20, 25);
-    map.setCollisionBetween(27, 29);
-    map.setCollision(40);
+    //map.setCollisionBetween(0, 25);
+    //map.setCollisionBetween(35, 80);
+    //map.setCollisionBetween(27, 29);
+    map.setCollision(5);
+    map.setCollision(7);
+    map.setCollision(14);
     
-    layer = map.createLayer('World1');
+    layer1 = map.createLayer('Floor');
+    layer2 = map.createLayer('Traps');
+    layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
-    // layer.debug = true;
+    layer1.debug = true;
 
-    layer.resizeWorld();
+    layer1.resizeWorld();
 
-    ape = game.add.sprite(32, 32, 'player');
+    ape = game.add.sprite(19, 1000, 'player');
+
 
     game.physics.enable(ape);
 
@@ -52,7 +57,7 @@ function create() {
 
     ape.body.bounce.y = 0.05;
     ape.body.linearDamping = 0;
-    ape.body.collideWorldBounds = false;
+    ape.body.collideWorldBounds = true;
 
     game.camera.follow(ape);
 
@@ -60,57 +65,25 @@ function create() {
 
     ape.inputEnabled = true;
 	ape.input.useHandCursor = true; //if you want a hand cursor
-	ape.events.onInputDown.add(destroy, this);
+	ape.events.onInputDown.add(yourFunction, this);
 
-	function destroy (event, sprite) {
-		event.kill();
+	function yourFunction(event, sprite)
+	{
+		ape.body.velocity.y -= 200;
 	}
 
-    // Diamond
-    diamond = game.add.sprite(800, 100, 'diamond');
-
-    game.physics.arcade.enable(diamond);
-    diamond.body.allowGravity = false;
-    diamond.body.collideWorldBounds = true;
-
-}
-
-function getDiamond (ape, diamond) {
-    var scale = 2;
-
-    game.stage.backgroundColor = '#000000';
-    diamond.kill();
-
-    ape.scale.set(scale);
-
-}
-
-function jumpControlGet (ape, powerUp) {
-    powerUp.kill();
-
-    gravityDecrease = 1000;
-}
-
-function die (ape, trap) {
-    ape.kill();
 }
 
 function update() {
 
-    game.physics.arcade.collide(ape, layer);
+    game.physics.arcade.collide(ape, layer1);
 
-    game.physics.arcade.collide(ape, diamond, jumpControlGet, null, this);
-
-    moveControl();
-}
-
-function moveControl() {
     ape.body.velocity.x = 0;
 
     if (cursors.up.isDown) {
         if (ape.body.onFloor()) {
             ape.body.velocity.y = -jumpPower;
-        } else {
+        } else{
             game.physics.arcade.gravity.y = gravity - gravityDecrease;
         }
     }
@@ -122,10 +95,11 @@ function moveControl() {
     }
 
     if (cursors.left.isDown) {
-        ape.body.velocity.x = -350;
+        ape.body.velocity.x = -150;
     } else if (cursors.right.isDown) {
-        ape.body.velocity.x = 350;
+        ape.body.velocity.x = 150;
     }
+
 }
 
 function render() {
