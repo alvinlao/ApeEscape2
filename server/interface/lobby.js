@@ -151,6 +151,10 @@ var getGameState = function() {
     return currentState;
 }
 
+var apeDeath = function() {
+    
+}
+
 exports.addPlayer = addPlayer;
 exports.removePlayer = removePlayer;
 exports.getLobby = getLobby;

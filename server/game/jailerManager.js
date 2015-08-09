@@ -1,4 +1,4 @@
-var lobby = require("../lobby");
+var lobby = require("../interface/lobby");
 
 var setupEvents = function(player, socket){
 	var jailer = player.gameState;
@@ -24,7 +24,7 @@ var setupEvents = function(player, socket){
 	 */
 
 	var apeDeath = function(){
-		lobby.
+		lobby.apeDeath;
 	}
 
 	socket.on("jailer_move",jailerMove);
