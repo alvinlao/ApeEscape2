@@ -37,7 +37,7 @@ function readyUp(context) {
 // Find out who I am
 socket.on("me", function(response) {
     myID = response.me.id;
-    handleGameStateUpdate(response.gameState);
+    handleGameStateUpdate(response.lobby);
 });
 
 // Game update

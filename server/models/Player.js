@@ -37,7 +37,7 @@ module.exports = function Player(name,socket) {
 
 	//Set on game start
 	this.setApe = function(){
-		this.Ape = true;
+		this.isApe = true;
 		this.gameState = new Ape();
 	}
 
