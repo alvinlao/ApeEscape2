@@ -119,3 +119,4 @@ exports.removePlayer = removePlayer;
 exports.getLobby = getLobby;
 exports.playerReady = playerReady;
 exports.state = state;
+exports.getGameState = getGameState;
