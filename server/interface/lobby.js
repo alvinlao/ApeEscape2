@@ -39,6 +39,9 @@ var removePlayer = function(removePlayer){
 var playerReady = function (readyPlayer) {
     readyPlayer.isReady = true;
     console.log(readyPlayer.name + " is ready. ".magenta + "[" + readyPlayerCount() + "/" + mainLobby.length + "]");
+    if(isReady()){
+        state = STATE.GAME;
+    }
 }
 
 /*
