@@ -32,7 +32,7 @@ var onConnect = function(socket) {
             me: player
         });
 
-        socket.broadcast("ape_state",lobby.getGameState());
+        updateState();
     }
 
     /*

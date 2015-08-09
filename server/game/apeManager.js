@@ -1,4 +1,5 @@
-var setupEvents = function(socket){
+var setupEvents = function(player,socket){
+	console.log(socket);
 	/*
 	 * Event: ape_move
 	 */

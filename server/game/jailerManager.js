@@ -1,14 +1,13 @@
 var lobby = require("../interface/lobby");
 
 var setupEvents = function(player, socket){
-	var jailer = player.gameState;
 	/*
 	 * Event: jailer_move
 	 */
 
 	var jailerMove = function(position){
-		jailer.x = position.x;
-		jailer.y = position.y;
+		player.gameState.x = position.x;
+		player.gameState.y = position.y;
 	}
 
 	/*
