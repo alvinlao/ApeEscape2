@@ -6,19 +6,22 @@ function preload() {
     game.load.tilemap('mario', 'js/game/super_mario.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'js/game/super_mario.png');
     game.load.image('player', 'js/game/phaser-dude.png');
+    game.load.image('diamond', 'js/game/diamond.png');
 
 
 }
 
-var gravity = 700;
-var gravityDecrease = 30;
-var jumpPower = 500;
+var gravity = 2000;
+var gravityDecrease = 1000;
+var jumpPower = 700;
 
 var map;
 var tileset;
 var layer;
-var p;
+var ape;
+var jumpPowerUp;
 var cursors;
+var diamond;
 
 function create() {
 
@@ -30,10 +33,7 @@ function create() {
 
     map.addTilesetImage('SuperMarioBros-World1-1', 'tiles');
 
-    //  14 = ? block
-    map.setCollisionBetween(14, 15);
-
-    map.setCollisionBetween(15, 16);
+    map.setCollisionBetween(14, 16);
     map.setCollisionBetween(20, 25);
     map.setCollisionBetween(27, 29);
     map.setCollision(40);
@@ -45,62 +45,81 @@ function create() {
 
     layer.resizeWorld();
 
-    p = game.add.sprite(32, 32, 'player');
+    ape = game.add.sprite(32, 32, 'player');
 
-    game.physics.enable(p);
+    game.physics.enable(ape);
 
     game.physics.arcade.gravity.y = gravity;
 
-    p.body.bounce.y = 0.05;
-    p.body.linearDamping = 0;
-    p.body.collideWorldBounds = true;
+    ape.body.bounce.y = 0.05;
+    ape.body.linearDamping = 0;
+    ape.body.collideWorldBounds = false;
 
-    game.camera.follow(p);
+    game.camera.follow(ape);
 
     cursors = game.input.keyboard.createCursorKeys();
 
-    p.inputEnabled = true;
-	p.input.useHandCursor = true; //if you want a hand cursor
-	p.events.onInputDown.add(yourFunction, this);
+    ape.inputEnabled = true;
+	ape.input.useHandCursor = true; //if you want a hand cursor
+	ape.events.onInputDown.add(yourFunction, this);
 
 	function yourFunction(event, sprite)
 	{
-		p.body.velocity.y -= 200;
+		ape.body.velocity.y -= 200;
 	}
+
+    //  Diamond
+    diamond = game.add.sprite(200, 300, 'diamond');
+    game.physics.arcade.enable(diamond);
+    diamond.body.collideWorldBounds = true;
+
+}
+
+function getDiamond (ape, diamond) {
+    var scale = 2;
+
+    game.stage.backgroundColor = '#000000';
+    diamond.kill();
+
+    ape.scale.set(scale);
 
 }
 
 function update() {
 
-    game.physics.arcade.collide(p, layer);
+    game.physics.arcade.collide(ape, layer);
 
-    p.body.velocity.x = 0;
+
+    game.physics.arcade.collide(ape, diamond, getDiamond, null, this);
+
+
+    ape.body.velocity.x = 0;
 
     if (cursors.up.isDown) {
-        if (p.body.onFloor()) {
-            p.body.velocity.y = -jumpPower;
-        } else{
+        if (ape.body.onFloor()) {
+            ape.body.velocity.y = -jumpPower;
+        } else {
             game.physics.arcade.gravity.y = gravity - gravityDecrease;
         }
     }
     else{
         game.physics.arcade.gravity.y = gravity;
     }
-    if (cursors.down.isDown && !p.body.onFloor()) {
-        p.body.velocity.y += gravityDecrease;
+    if (cursors.down.isDown && !ape.body.onFloor()) {
+        game.physics.arcade.gravity.y = gravity + gravityDecrease;
     }
 
     if (cursors.left.isDown) {
-        p.body.velocity.x = -150;
+        ape.body.velocity.x = -350;
     } else if (cursors.right.isDown) {
-        p.body.velocity.x = 150;
+        ape.body.velocity.x = 350;
     }
 
 }
 
 function render() {
 
-    // game.debug.body(p);
-    // game.debug.bodyInfo(p, 32, 320);
+    // game.debug.body(ape);
+    // game.debug.bodyInfo(ape, 32, 320);
 
 }
