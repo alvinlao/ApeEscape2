@@ -2,6 +2,7 @@ var colors      = require("colors");
 var Player      = require("../models/Player");
 var Ape         = require("../models/Ape");
 var STATE       = require("../models/GameState");
+var io          = require("socket.io");
 
 
 //Array of Player objects
@@ -103,6 +104,11 @@ var startGame = function() {
 
     //Start the game
     state = STATE.GAME;
+
+    //Emit the event
+    io.emit("game_start",true);
+
+    //Update the game on an interval
 }
 
 /*

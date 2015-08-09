@@ -1,18 +1,22 @@
-var setupEvents = function(socket){
+var lobby = require("../lobby");
+
+var setupEvents = function(player, socket){
+	var jailer = player.gameState;
 	/*
 	 * Event: jailer_move
 	 */
 
-	var jailerMove = function(){
-
+	var jailerMove = function(position){
+		jailer.x = position.x;
+		jailer.y = position.y;
 	}
 
 	/*
 	 * Event: trap_click
 	 */
 
-	var trapClick = function(){
-
+	var trapClick = function(trapNumber){
+		lobby.clickTrap(trapNumber);
 	}
 
 	/*
@@ -20,7 +24,7 @@ var setupEvents = function(socket){
 	 */
 
 	var apeDeath = function(){
-
+		lobby.
 	}
 
 	socket.on("jailer_move",jailerMove);
