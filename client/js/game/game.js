@@ -1,9 +1,17 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+// Our game
+function Game() {
+    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
+}
+
+Game.prototype = Object.create(Phaser.Game.prototype);
+Game.constructor = Game;
+
+var game = new Game();
 
 function preload() {
 	game.stage.backgroundColor = '#85b5e1';
 
-    game.load.tilemap('level1', 'js/game/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1', 'js/game/levels/level1/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
 
@@ -14,7 +22,7 @@ function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.stage.backgroundColor = '#000000';
+    game.stage.backgroundColor = '#ffffff';
 
     map = game.add.tilemap('level1');
 
@@ -29,7 +37,8 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer3 = map.createLayer('FinishLine');
+    layer2.visible = false;
+    //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
     layer1.debug = true;
