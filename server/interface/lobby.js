@@ -7,7 +7,7 @@ var STATE       = require ("../models/GameState");
 var mainLobby = [];
 
 //Current state
-var state = STATE.LOBBY_WAITING;
+var state = STATE.LOBBY;
 
 /*
  * Upon connecting to the lobby, add the player
@@ -90,10 +90,7 @@ var getLobby = function() {
         var player = {};
 
         switch(state){
-            case STATE.LOBBY_WAITING:
-                player = mainLobby[i].getLobbyInfo();
-                break;
-            case STATE.LOBBY_READY:
+            case STATE.LOBBY:
                 player = mainLobby[i].getLobbyInfo();
                 break;
             case GAME:

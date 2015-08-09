@@ -1,4 +1,3 @@
-exports.LOBBY_WAITING	= 0;
-exports.LOBBY_READY		= 1;
-exports.GAME 			= 2;
-exports.GAME_OVER		= 3;
+exports.LOBBY			= 0;
+exports.GAME 			= 1;
+exports.GAME_OVER		= 2;
