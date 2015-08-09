@@ -1,14 +1,9 @@
 function update() {
 
-    game.physics.arcade.collide(ape, layer);
-
-    game.physics.arcade.collide(ape, diamond, jumpControlGet, null, this);
+    game.physics.arcade.collide(ape, layer1);
 
     moveControl();
 
-    updateServer();
-
-    getUpdatesFromServer();
 }
 
 function moveControl() {
@@ -17,11 +12,11 @@ function moveControl() {
     if (cursors.up.isDown) {
         if (ape.body.onFloor()) {
             ape.body.velocity.y = -jumpPower;
-        } else {
+        } else{
             game.physics.arcade.gravity.y = gravity - gravityDecrease;
         }
     }
-    else{
+    else {
         game.physics.arcade.gravity.y = gravity;
     }
     if (cursors.down.isDown && !ape.body.onFloor()) {
@@ -29,8 +24,8 @@ function moveControl() {
     }
 
     if (cursors.left.isDown) {
-        ape.body.velocity.x = -350;
+        ape.body.velocity.x = -150;
     } else if (cursors.right.isDown) {
-        ape.body.velocity.x = 350;
+        ape.body.velocity.x = 150;
     }
 }
