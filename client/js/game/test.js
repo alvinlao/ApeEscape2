@@ -19,6 +19,7 @@ var map;
 var tileset;
 var layer;
 var ape;
+var jumpPowerUp;
 var cursors;
 var diamond;
 
@@ -45,7 +46,6 @@ function create() {
     layer.resizeWorld();
 
     ape = game.add.sprite(32, 32, 'player');
-
 
     game.physics.enable(ape);
 
