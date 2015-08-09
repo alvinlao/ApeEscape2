@@ -59,10 +59,13 @@ ul {
     background-color: #528AEB;
 }
 
-#lobby-players {
-    text-align: left;
+#lobby-wait {
     width: 500px;
     margin: 0 auto;
+}
+
+#lobby-players {
+    text-align: left;
 }
 
 #lobby-players div {
@@ -95,6 +98,19 @@ ul {
     background-color: #919191;
 }
 
+
+/*
+ * LEADERBOARD
+ */
+#leaderboard {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#leaderboard ul {
+    text-align: left;
+}
 
 /*
  * GAME
