@@ -95,10 +95,10 @@ var getLobby = function() {
             case STATE.LOBBY:
                 player = mainLobby[i].getLobbyInfo();
                 break;
-            case GAME:
+            case STATE.GAME:
                 player = mainLobby[i].getInGameInfo();
                 break;
-            case GAME_OVER:
+            case STATE.GAME_OVER:
                 player = mainLobby[i].getLobbyInfo();
                 break;
         }
