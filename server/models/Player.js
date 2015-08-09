@@ -1,4 +1,4 @@
-var playerID = 0;
+var playerID = 1;
 var Ape = require("./Ape");
 var Jailer = require("./Jailer");
 

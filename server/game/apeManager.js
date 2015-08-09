@@ -1,24 +1,27 @@
 var setupEvents = function(player,socket){
-	console.log(socket);
 	/*
 	 * Event: ape_move
 	 */
-	var apeMove = function(){
-
+	var apeMove = function(position){
+		player.gameState.x = position.x;
+		player.gameState.y = position.y;
 	}
 
 	/*
 	 * Event: ape_shield
 	 */
 	var apeShield = function(){
-
+		player.gameState.shield = true;
+		setTimeout(function(){
+			player.gameState.shield = false;
+		}, 3000);
 	}
 
 	/*
 	 * Event: ape_death
 	 */
 	var apeDeath = function(){
-
+		player.gameState.isDead = true;
 	}
 
 	/*
