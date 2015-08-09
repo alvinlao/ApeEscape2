@@ -7,7 +7,6 @@
     <script type="text/javascript" src="js/lib/phaser.min.js"></script>
     <script type="text/javascript" src="js/lib/socket.io.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="js/game/test.js"></script>
 </head>
 
 <body>
@@ -15,30 +14,35 @@
         <h1 id="title">Ape Escape 2</h1>
 
         <div id="askName">
-            <h2>Enter Name</h2>
+            <h2>A Hack-a-thon Web Game</h2>
             <form id="name-form">
                 <input id="name-input" placeholder="What's your name?" maxlength="20"/>
                 <button id="name-submit">OK</button>
             </form>
         </div>
 
-        <div id="lobby">
+        <div id="lobby" style="display: none;">
             <h2>Lobby</h2>
             <div id="lobby-wait">
                 <ul id="lobby-players">
                 </ul>
-
-                <button id="ready-button">READY</button>
             </div>
         </div>
 
-        <div id="game" align="center">
+        <div id="game" align="center" style="display: none;">
         </div>
 
-        <div id="leaderboard">
+        <div id="leaderboard" style="display: none;">
             <h2>Leaderboard</h2>
+            <table>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Time</th>
+                </tr>
+            </table>
             <ul>
-                <li>Alvin</li>
                 <li>Alvin</li>
                 <li>Alvin</li>
                 <li>Alvin</li>
@@ -51,6 +55,11 @@
     <script type="text/javascript" src="js/state.js"></script>
     <script type="text/javascript" src="js/client.js"></script>
     <script type="text/javascript" src="js/ui.js"></script>
+
+    <script type="text/javascript" src="js/game/preload.js"></script>
+    <script type="text/javascript" src="js/game/create.js"></script>
+    <script type="text/javascript" src="js/game/update.js"></script>
+    <script type="text/javascript" src="js/game/config.js"></script>
 </body>
 
 </html>

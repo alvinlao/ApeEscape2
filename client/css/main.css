@@ -10,7 +10,7 @@ h1 {
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 input, button {
@@ -75,16 +75,26 @@ ul {
 
 #lobby-players li {
     margin: 10px 0;
+    padding: 15px;
+    position: relative;
+}
+
+#lobby-player-me {
+    background-color: #EDEDED;
 }
 
 #ready-button {
     box-sizing: border-box;
     width: 100px;
-    height: 45px;
+    height: 100%;
 
-    border :none;
+    border: none;
     color: white;
     background-color: #5BBD3A;
+
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 #ready-button:hover {
@@ -124,14 +134,14 @@ ul {
 
 .lobby-indicator {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 
     margin-right: 20px;
 }
 
 .indicator-ready {
-    background-color: green;
+    background-color: #5BBD3A;
 }
 
 .indicator-wait {

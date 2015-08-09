@@ -19,21 +19,35 @@ function UIHideAll() {
 function UIUpdateLobbyPlayers(players) {
     var uiPlayers = $("#lobby-players");
     var uiPlayer = "<li><div class='lobby-indicator circle { isReady }'></div><span>{ playerName }</span></li>";
+    var uiMe = "<li id='lobby-player-me'><div class='lobby-indicator circle { isReady }'></div><span>{ playerName }</span><button id='ready-button' onclick='readyUp(this)'>READY</button></li>";
 
     uiPlayers.empty();
 
+    // Make sure the current player is at the top of the list
+    players.sort(function(a, b) {
+        if (a.id === myID) {
+            return -1;
+        }
+        if (b.id === myID) {
+            return 1;
+        }
+        return 0;
+    });
+
     players.forEach(function(player) {
-        var li = uiPlayer.replace("{ playerName }", player.name)
-            .replace("{ isReady }", player.isReady ? "indicator-ready" : "indicator-wait");
+        var template;
+
+        if (player.id === myID) {
+            template = uiMe;
+        } else {
+            template = uiPlayer;
+        }
+
+        li = template.replace("{ playerName }", player.name)
+        .replace("{ isReady }", player.isReady ? "indicator-ready" : "indicator-wait");
 
         uiPlayers.append(li);
     });
-}
-
-// Toggle ready button
-function UIReadyButton(disable) {
-    // Change button to wait
-    $("#ready-button").prop("disabled", disable);
 }
 
 function UILeaderboard(entries) {
