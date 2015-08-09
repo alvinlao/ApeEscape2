@@ -44,7 +44,7 @@ httpServer.listen(config.APP_PORT, config.APP_IP, function() {
         +" /_/   \\_\\ .__/ \\___| |_____|___/\\___\\__,_| .__/ \\___| ".blue.bold + "|_____|\n".red.bold
         +"         |_|                              |_|                 ".blue.bold
     );
-    console.log("Ape Escape 2 started on ".blue.bold + (config.APP_IP + config.APP_PORT).red.bold);
+    console.log("Ape Escape 2 started on ".blue.bold + (config.APP_IP + ":" + config.APP_PORT).red.bold);
 });
 
 

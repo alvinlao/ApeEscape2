@@ -28,7 +28,10 @@ var setupEvents = function(player,socket){
 	 * Event: ape_dash
 	 */
 	var apeDash = function(){
-
+		player.gameState.dash = true;
+		setTimeout(function(){
+			player.gameState.dash = false;
+		}, 3000);
 	}
 
 	//Set up the sockets

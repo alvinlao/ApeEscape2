@@ -2,15 +2,19 @@ var playerID = 1;
 var Ape = require("./Ape");
 var Jailer = require("./Jailer");
 
-module.exports = function Player(name) {
+module.exports = function Player(name,socket) {
 	//Upon creation, assign an ID
 	this.id = playerID++;
+
+	//IO socket to communicate with
+	this.socket = socket;
 
 	//Lobby data
 	this.name = name;
 	this.isReady = false;
 
 	//Either a Jailer or Ape object
+	this.isApe = false;
 	this.gameState = {};
 
 	//Call to get the basic information of a user in the lobby
@@ -32,11 +36,13 @@ module.exports = function Player(name) {
 	}
 
 	//Set on game start
-	this.isApe = function(){
+	this.setApe = function(){
+		this.isApe = true;
 		this.gameState = new Ape();
 	}
 
-	this.isJailer = function(){
+	this.setJailer = function(){
+		this.isApe = false;
 		this.gameState = new Jailer();
 	}
 }
