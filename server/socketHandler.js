@@ -27,9 +27,12 @@ var onConnect = function(socket) {
         lobby.addPlayer(player);
 
         //Let the player know who they are
-        socket.emit("me",player);
+        socket.emit("me",{
+            gameState: lobby.getGameState(),
+            me: player
+        });
 
-        updateState();
+        socket.broadcast("ape_state",lobby.getGameState());
     }
 
     /*
@@ -60,8 +63,8 @@ var onConnect = function(socket) {
     }
 
     //Set up the in game events
-    jailerManager.setupEvents(socket);
-    apeManager.setupEvents(socket);
+    jailerManager.setupEvents(player, socket);
+    apeManager.setupEvents(player, socket);
 
     socket.on("lobby_join",onLobbyJoin);
     socket.on("disconnect",onDisconnect);
