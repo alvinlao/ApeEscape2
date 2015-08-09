@@ -14,6 +14,7 @@ function preload() {
     game.load.tilemap('level1', 'js/game/levels/level1/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
+    game.load.image('fireTrap', 'assets/diamond.png');
 
 }
 
@@ -78,6 +79,13 @@ function update() {
     game.physics.arcade.collide(ape, layer1);
 
     move(ape);
+
+    //socket call mock
+    activateTrap(trap);
+
+}
+
+function activateTrap(trap){
 
 }
 
