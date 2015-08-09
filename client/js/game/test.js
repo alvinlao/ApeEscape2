@@ -10,9 +10,10 @@ function preload() {
 
 }
 
-var gravity = 2000;
+var gravity = 1000;
 var gravityDecrease = 1000;
-var jumpPower = 700;
+var jumpPower = 600;
+var speed = 220;
 
 var map;
 var tileset;
@@ -83,6 +84,13 @@ function update() {
     if (cursors.up.isDown) {
         if (ape.body.onFloor()) {
             ape.body.velocity.y = -jumpPower;
+        }
+    }
+
+    /*
+    if (cursors.up.isDown) {
+        if (ape.body.onFloor()) {
+            ape.body.velocity.y = -jumpPower;
         } else{
             game.physics.arcade.gravity.y = gravity - gravityDecrease;
         }
@@ -93,11 +101,12 @@ function update() {
     if (cursors.down.isDown && !ape.body.onFloor()) {
         game.physics.arcade.gravity.y = gravity + gravityDecrease;
     }
+    */
 
     if (cursors.left.isDown) {
-        ape.body.velocity.x = -150;
+        ape.body.velocity.x = -speed;
     } else if (cursors.right.isDown) {
-        ape.body.velocity.x = 150;
+        ape.body.velocity.x = speed;
     }
 
 }
