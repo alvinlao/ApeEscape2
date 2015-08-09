@@ -13,7 +13,7 @@ var onConnect = function(socket) {
     console.log("Connection Recieved.".green);
     var self = this;
 
-    //Player object
+    //Player object (Unique to this connection)
     var player;
 
     /*
@@ -23,7 +23,9 @@ var onConnect = function(socket) {
         player = new Player(playerName);
         lobby.addPlayer(player);
 
+        //Let the player know who they are
         socket.emit("me",player);
+
         updateState();
     }
 
@@ -33,9 +35,9 @@ var onConnect = function(socket) {
     var onDisconnect = function(socket){
         if(player){
             lobby.removePlayer(player);
+            updateState();
         }
 
-        updateState();
         console.log("IO Connection Closed.".green);
     }
 
@@ -44,12 +46,11 @@ var onConnect = function(socket) {
      */
     var onReady = function(socket) {
         lobby.playerReady(player);
-
         updateState();
     }
 
     var updateState = function() {
-        io.emit("ape_state",lobby.getGameState);
+        io.emit("ape_state",lobby.getGameState());
     }
 
     socket.on("lobby_join",onLobbyJoin);
