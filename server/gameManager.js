@@ -13,14 +13,14 @@ var startGame = function() {
     for(var i=0;i<gameState.players.length;i++){
         if(i === theApe){
             gameState.players[i].setApe();
-            gameState.players[i].emit("player_role",ROLE.APE);
+            gameState.players[i].socket.emit("player_role",ROLE.APE);
 
             //Wait for the ape to give us level info
-            console.log("Game is ready, waiting for Ape.".cyan);
+            console.log("Game is ready, waiting for Ape.".cyan + " (" + gameState.players[i].name + ")");
             gameState.players[i].socket.on("level_start",startLevel);
         } else {
             gameState.players[i].setJailer();
-            gameState.players[i].emit("player_role",ROLE.JAILER);
+            gameState.players[i].socket.emit("player_role",ROLE.JAILER);
         }
     }
 };
@@ -56,7 +56,7 @@ var updateGame = function() {
     for(var i=0;i<gameState.players.length;i++){
         if(gameState.players[i].role === ROLE.JAILER){
             console.log("updating game");
-            gameState.players[i].socket.emit("ape_state",{
+            gameState.players[i].socket.emit("game_state",{
                 state: gameState.state,
                 players: gameState.players
             });
