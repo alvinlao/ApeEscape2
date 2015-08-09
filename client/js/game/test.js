@@ -51,7 +51,7 @@ function create() {
 
     ape.body.bounce.y = 0.05;
     ape.body.linearDamping = 0;
-    ape.body.collideWorldBounds = true;
+    ape.body.collideWorldBounds = false;
 
     game.camera.follow(ape);
 
@@ -77,7 +77,7 @@ function update() {
     if (cursors.up.isDown) {
         if (ape.body.onFloor()) {
             ape.body.velocity.y = -jumpPower;
-        } else{
+        } else {
             game.physics.arcade.gravity.y = gravity - gravityDecrease;
         }
     }
@@ -89,9 +89,9 @@ function update() {
     }
 
     if (cursors.left.isDown) {
-        ape.body.velocity.x = -150;
+        ape.body.velocity.x = -350;
     } else if (cursors.right.isDown) {
-        ape.body.velocity.x = 150;
+        ape.body.velocity.x = 350;
     }
 
 }
