@@ -15,12 +15,14 @@ exports.addPlayer = function(playerName,socket){
     });
 
     //Let everyone else know
-    newPlayer.socket.broadcast.emit("lobby_state",gameState.getLobbyState());
+    newPlayer.socket.emit("lobby_state",gameState.getLobbyState());
 
     var playerReady = function(){
         //Make the player ready
         newPlayer.isReady = true;
         console.log(newPlayer.name + " is ready. " + readyPlayerCount() + "/" + gameState.players.length);
+
+        newPlayer.socket.emit("lobby_state",gameState.getLobbyState());
 
         //Call start game if everyone is ready
         if(gameState.players.length > 0 && readyPlayerCount() === gameState.players.length){
