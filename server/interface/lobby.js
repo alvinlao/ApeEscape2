@@ -36,10 +36,9 @@ var removePlayer = function(removePlayer){
  * playerReady
  * @return true if the lobby is ready, false if it's not.
  */
-var playerReady = function (readyPlayer,callback) {
+var playerReady = function (readyPlayer) {
     readyPlayer.isReady = true;
     console.log(readyPlayer.name + " is ready. ".magenta + "[" + readyPlayerCount() + "/" + mainLobby.length + "]");
-    callback(isReady());
 }
 
 /*
