@@ -14,8 +14,7 @@ function preload() {
     game.load.tilemap('level1', 'js/game/levels/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
-
-
+    game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
 }
 
 function create() {
@@ -44,8 +43,8 @@ function create() {
 
     layer1.resizeWorld();
 
-    ape = game.add.sprite(19, 1000, 'player');
-
+    ape = new Ape(game, 19, 1000, "ape");
+    game.add.existing(ape);
 
     game.physics.enable(ape);
 
@@ -81,15 +80,23 @@ function update() {
 function move(ape) {
 	ape.body.velocity.x = 0;
 
+    if (cursors.left.isDown) {
+        ape.walk(-speed);
+    } else if (cursors.right.isDown) {
+        ape.walk(speed);
+    } else {
+        ape.stop();
+    }
+
     if (cursors.up.isDown) {
+        ape.jump();
+
         if (ape.body.onFloor()) {
             ape.body.velocity.y = -jumpPower;
         }
     }
 
-    if (cursors.left.isDown) {
-        ape.body.velocity.x = -speed;
-    } else if (cursors.right.isDown) {
-        ape.body.velocity.x = speed;
-    }
+    if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
+        ape.stop();
+    } 
 }
