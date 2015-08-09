@@ -66,7 +66,12 @@ function update() {
 
     game.physics.arcade.collide(ape, layer1);
 
-    ape.body.velocity.x = 0;
+    move(ape);
+
+}
+
+function move(ape) {
+	ape.body.velocity.x = 0;
 
     if (cursors.up.isDown) {
         if (ape.body.onFloor()) {
@@ -79,5 +84,4 @@ function update() {
     } else if (cursors.right.isDown) {
         ape.body.velocity.x = speed;
     }
-
 }
