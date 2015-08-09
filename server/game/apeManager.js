@@ -33,3 +33,5 @@ var setupEvents = function(socket){
 	socket.on("ape_death",apeDeath);
 	socket.on("ape_dash",apeDash);
 }
+
+exports.setupEvents = setupEvents;

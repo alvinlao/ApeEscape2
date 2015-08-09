@@ -27,3 +27,5 @@ var setupEvents = function(socket){
 	socket.on("trap_click",trapClick);
 	socket.on("ape_death",apeDeath);
 }
+
+exports.setupEvents = setupEvents;
