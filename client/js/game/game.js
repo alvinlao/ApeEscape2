@@ -1,13 +1,21 @@
 // Our game
 function Game() {
-    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
+    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { create: create, update: update });
 }
 
 Game.prototype = Object.create(Phaser.Game.prototype);
 Game.constructor = Game;
 
 var game = new Game();
+game.state.add("boot", BootState, true);
+game.state.add("load", LoadState, true);
+game.state.add("lobby", LobbyState, true);
+game.state.add("play", PlayState, true);
+game.state.add("end", EndState, true);
 
+game.state.start("boot");
+
+/*
 function preload() {
 	game.stage.backgroundColor = '#85b5e1';
 
@@ -15,11 +23,12 @@ function preload() {
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
     game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
-    game.load.image('fireTrap', 'assets/diamond.png');
+    game.load.spritesheet('flameTrap', 'assets/fire.png', 64, 64, 6);
+    game.load.spritesheet('laserTrap', 'assets/beam.png', 64, 320, 6);
 }
+*/
 
 function create() {
-
     // TODO
     currentStage = STAGE_01;
 
@@ -38,7 +47,7 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer2.visible = player.role === ROLE_APE;
+    layer2.visible = (player.role === ROLE_JAILER);
     //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
@@ -129,6 +138,7 @@ function activateTrap(trap) {
 
     newTrap.expiryTime = expiryTime;
     
+    game.add.existing(newTrap);
     newTrap.deploy();
 
     activeTraps.push(newTrap);
