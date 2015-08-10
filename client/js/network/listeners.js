@@ -74,7 +74,7 @@ function handleGameState(state){
 
                     //TWEEN DAT
                     if(ape.currentTween){
-                        game.tween.remove(ape.currentTween);
+                        game.tweens.remove(ape.currentTween);
                     }
 
                     ape.currentTween = game.add.tween(ape).to({
