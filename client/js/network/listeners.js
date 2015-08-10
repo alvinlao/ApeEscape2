@@ -34,6 +34,7 @@ function handlePlayerRole(role) {
     }
 }
 
+// A new level started
 function handleLevelStart(response) {
     console.log("The level is: " + response);
 }
