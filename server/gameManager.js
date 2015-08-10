@@ -41,8 +41,8 @@ var startLevel = function(levelData){
     if(gameState.state !== STATE.GAME){
         //First time
         gameState.state = STATE.GAME;
-        clearInterval(updateInterval);
-        updateInterval = setInterval(updateGame,1);
+        //clearInterval(updateInterval);
+        //updateInterval = setInterval(updateGame,1);
 
         gameState.state = 1;
 
@@ -87,7 +87,6 @@ var cleanPlayerData = function(){
 }
 
 var updateGame = function() {
-    console.log(".".red);
     //Update only jailers
     for(var i=0;i<gameState.players.length;i++){
         if(gameState.players[i].role === ROLE.JAILER){

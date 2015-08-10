@@ -62,6 +62,26 @@ function handleGameState(state){
                     remoteApe.frame = state.players[player].state.frame;
                     remoteApe.name = state.players[player].name;
 
+                    if(apeName){
+                        apeName.text = state.players[player].name;
+                        var nameXPos = Math.floor(xPos + ape.width / 2) - ((scale.x === 1) ? ape.width : 0);
+                        apeName.x = nameXPos;
+                        apeName.y = yPos - 65;
+                    }
+
+
+                    //TWEEN DAT
+                    if(ape.currentTween){
+                        game.tweens.remove(ape.currentTween);
+                    }
+
+                    ape.currentTween = game.add.tween(ape).to({
+                        x: [xPos],
+                        y: [yPos]
+                    },30).interpolation(Phaser.Math.bezierInterpolation).start();
+
+                    ape.scale = scale;
+                    ape.frame = state.players[player].state.frame;
                     break;
                 case ROLE_JAILER:
                     break;
