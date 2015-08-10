@@ -51,7 +51,7 @@ var lastUpdate = new Date();
 function handleGameState(state){
     // Latency checking
     var currentUpdate = new Date();
-    console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
+    //console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
     lastUpdate = currentUpdate;
 
     if (window.player.role === ROLE_JAILER){
