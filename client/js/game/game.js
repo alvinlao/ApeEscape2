@@ -75,10 +75,11 @@ function checkTraps(activeTraps) {
             trap.kill();
             var index = activeTraps.indexOf(trap);
             activeTraps.splice(index, 1);
-        } else {
+        } else if (trap.expiryTime > 0) {
             trap.expiryTime--;
-            game.physics.arcade.collide(ape, trap, die, null, self);
         }
+
+        game.physics.arcade.collide(ape, trap, trap.effect, null, self);
     });
 }
 
@@ -101,14 +102,26 @@ function activateTrap(trap) {
 
     var expiryTime = 90;
 
-    var newTrap = new Trap(game, x, y, 'player');
+    var newTrap; 
+
+    switch (trapType){
+        case 8:
+            newTrap = new FlameTrap(game, x, y, 'flameTrap');
+            break;
+        case 9:
+            newTrap = new FallingPlatformTrap(game, x, y, 'fallingPlatformTrap');
+            break;
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+            newTrap = new LaserTrap(game, x, y, 'laserTrap', trapType);
+            break;
+    }
 
     newTrap.expiryTime = expiryTime;
-
-    game.add.existing(newTrap);
-
-    game.physics.arcade.enable(newTrap);
-    newTrap.body.moves = false;
+    
+    newTrap.deploy();
 
     activeTraps.push(newTrap);
 }
