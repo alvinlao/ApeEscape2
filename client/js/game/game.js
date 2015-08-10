@@ -38,7 +38,7 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer2.visible = false;
+    layer2.visible = player.role === ROLE_APE;
     //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
@@ -63,10 +63,14 @@ function update() {
 
     game.physics.arcade.collide(ape, layer1);
 
-    if (player.role = ROLE_APE){
+    if (player.role === ROLE_APE){
 
        move(ape);
-       
+
+    } else if (player.role === ROLE_JAILER){
+
+
+
     }
 
     checkTraps(activeTraps);
