@@ -12,7 +12,6 @@ function Trap(game, x, y, key) {
     this.deploy = function() {
 	    game.physics.arcade.enable(this);
 	    this.body.moves = false;
-	    this.body.rotate(90);
     }
 }
 
