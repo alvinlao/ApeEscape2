@@ -40,6 +40,9 @@ var startLevel = function(levelData){
         gameState.state = STATE.GAME;
         clearInterval(updateInterval);
         updateInterval = setInterval(updateGame,100);
+
+        //Let everyone know that the lobby is now in game.
+        io.emit("lobby_state",gameState.getLobbyState());
     }
     console.log("Starting level ".cyan + levelData.levelNumber + "!".cyan);
 
