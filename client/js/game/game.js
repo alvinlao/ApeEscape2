@@ -41,7 +41,7 @@ function create() {
     //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
-    layer1.debug = true;
+    //layer1.debug = true;
 
     layer1.resizeWorld();
 
