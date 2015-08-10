@@ -38,7 +38,7 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer2.visible = player.role === ROLE_APE;
+    layer2.visible = (player.role === ROLE_JAILER);
     //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
@@ -129,6 +129,7 @@ function activateTrap(trap) {
 
     newTrap.expiryTime = expiryTime;
     
+    game.add.existing(newTrap);
     newTrap.deploy();
 
     activeTraps.push(newTrap);
