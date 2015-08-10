@@ -42,7 +42,7 @@ var startLevel = function(levelData){
         //First time
         gameState.state = STATE.GAME;
         clearInterval(updateInterval);
-        updateInterval = setInterval(updateGame,10);
+        updateInterval = setInterval(updateGame,1);
 
         gameState.state = 1;
 
