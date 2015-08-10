@@ -7,8 +7,8 @@ function Ape(game, x, y, key) {
     // Setup animations
     // Frames 1 and 2
     this.animations.add("walk", [0, 1], 10);
-    this.animations.add("stand", [2], 10);
-    this.animations.add("jump", [4], 10);
+    this.animations.add("stand", [2, 3], 10);
+    this.animations.add("jump", [4, 5], 10);
 
     // Methods
     this.walk = function(speed) {
@@ -34,7 +34,7 @@ function Ape(game, x, y, key) {
     }
 
     this.jump = function() {
-        this.animations.stop();
+        //this.animations.stop();
         this.animations.play("jump", 10, true);
     }
 }
