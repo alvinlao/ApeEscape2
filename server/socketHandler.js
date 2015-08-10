@@ -27,3 +27,4 @@ var setupIO = function(server){
 }
 
 exports.setupIO = setupIO;
+exports.io = io;
