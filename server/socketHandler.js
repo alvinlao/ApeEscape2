@@ -27,6 +27,7 @@ var setupIO = function(server){
     io.on("connection",onConnect);
 
     gameManager.linkIO(io);
+    lobbyManager.linkIO(io);
 }
 
 exports.setupIO = setupIO;
