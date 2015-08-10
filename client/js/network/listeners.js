@@ -47,3 +47,6 @@ socket.on("lobby_state", handleLobbyUpdate);
 
 // Find out what role I am
 socket.on("player_role", handlePlayerRole);
+
+// Find out a new level has started
+socket.on("level_start", handleLevelStart);
