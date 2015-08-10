@@ -63,7 +63,11 @@ function update() {
 
     game.physics.arcade.collide(ape, layer1);
 
-    move(ape);
+    if (player.role = ROLE_APE){
+
+       move(ape);
+       
+    }
 
     checkTraps(activeTraps);
 
