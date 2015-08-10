@@ -1,5 +1,13 @@
 function FlameTrap(game, x, y, key) {
     Trap.call(this, game, x, y, key);
+
+    this.animations.add("ignite", [0, 1, 2, 3], 10);
+
+    this.deploy = function(){
+	    game.physics.arcade.enable(this);
+	    this.body.moves = false;
+        this.animations.play("ignite", 10, true);
+    }
 }
 
 FlameTrap.prototype = Object.create(Trap.prototype);

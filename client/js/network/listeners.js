@@ -27,7 +27,7 @@ function handleLobbyUpdate(response) {
 
 // Role is a enum (see roles.js)
 function handlePlayerRole(role) {
-    console.log("My role is: "+role);
+    console.log("My role is: " + role);
     player.role = role;
 
     game.state.start("play");
@@ -51,7 +51,6 @@ function handleGameState(state){
     //console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
     lastUpdate = currentUpdate;
 
-    console.log("!");
     if (window.player.role === ROLE_JAILER){
         for(var player in state.players){
             switch(state.players[player].role){
@@ -60,6 +59,9 @@ function handleGameState(state){
                     remoteApe.y = state.players[player].state.y;
                     remoteApe.scale = state.players[player].state.scale;
                     remoteApe.frame = state.players[player].state.frame;
+                    //remoteApe.name = state.players[player].state.name;
+                    remoteApe.name = "BOB";
+
                     break;
                 case ROLE_JAILER:
                     break;

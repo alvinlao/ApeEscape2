@@ -36,6 +36,8 @@ function Level() {
         if (player.role === ROLE_JAILER) {
             ape.anchor.setTo(0.5,1);
             ape.body.gravity = false;
+            layer2.visible = true;
+            apeName = game.add.text(0, 0, "", { font: "12px Arial", fill: "#000000", align: "center" });
         }
 
         //add the traps
@@ -57,6 +59,17 @@ function Level() {
             ape.y = remoteApe.y;
             ape.scale = remoteApe.scale;
             ape.frame = remoteApe.frame;
+
+            var xPos = remoteApe.x;
+            var yPos = remoteApe.y;
+            var scale = remoteApe.scale;
+
+            if(apeName) {
+                apeName.text = remoteApe.name;
+                var nameXPos = Math.floor(xPos + ape.width / 2) - ((scale.x === 1) ? ape.width : 0);
+                apeName.x = nameXPos;
+                apeName.y = yPos - 65;
+            }
         }
 
         checkTraps(activeTraps);
