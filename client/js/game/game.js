@@ -147,6 +147,7 @@ function move(ape) {
         }
     }
 
+    // If they push both left and right, stop them.
     if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
         ape.stop();
     } 
