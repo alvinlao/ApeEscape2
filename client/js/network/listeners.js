@@ -30,6 +30,7 @@ function handlePlayerRole(role) {
     player.role = role;
 
     if (role === ROLE_APE) {
+        game.state.start("play");
         updateLevelStart();
     }
 }
