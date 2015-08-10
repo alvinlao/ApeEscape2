@@ -46,8 +46,14 @@ function handleLevelStart(response) {
     console.log("The level is: " + response);
 }
 
+var lastUpdate = new Date();
 //Ape position updated by server
 function handleGameState(state){
+    // Latency checking
+    var currentUpdate = new Date();
+    console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
+    lastUpdate = currentUpdate;
+
     if (window.player.role === ROLE_JAILER){
         for(var player in state.players){
             switch(state.players[player].role){
