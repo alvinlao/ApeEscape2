@@ -50,6 +50,7 @@ function handleGameState(state){
     var currentUpdate = new Date();
     //console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
     lastUpdate = currentUpdate;
+    console.log("game state");
 
     if (window.player.role === ROLE_JAILER){
         for(var player in state.players){
@@ -59,8 +60,7 @@ function handleGameState(state){
                     remoteApe.y = state.players[player].state.y;
                     remoteApe.scale = state.players[player].state.scale;
                     remoteApe.frame = state.players[player].state.frame;
-                    //remoteApe.name = state.players[player].state.name;
-                    remoteApe.name = "BOB";
+                    remoteApe.name = state.players[player].name;
 
                     break;
                 case ROLE_JAILER:
