@@ -1,8 +1,12 @@
-var io              = require("socket.io");
 var gameState       = require("../gameState");
 var gameManager     = require("../gameManager");
 var Player          = require("../models/Player");
 var colors          = require("colors");
+
+var io;
+exports.linkIO = function(ioLink){
+    io = ioLink;
+}
 
 exports.addPlayer = function(playerName,socket){
     var newPlayer = new Player(playerName,socket);
@@ -15,14 +19,14 @@ exports.addPlayer = function(playerName,socket){
     });
 
     //Let everyone else know
-    newPlayer.socket.emit("lobby_state",gameState.getLobbyState());
+    io.emit("lobby_state",gameState.getLobbyState());
 
     var playerReady = function(){
         //Make the player ready
         newPlayer.isReady = true;
         console.log(newPlayer.name + " is ready. " + readyPlayerCount() + "/" + gameState.players.length);
 
-        newPlayer.socket.emit("lobby_state",gameState.getLobbyState());
+        io.emit("lobby_state",gameState.getLobbyState());
 
         //Call start game if everyone is ready
         if(gameState.players.length > 0 && readyPlayerCount() === gameState.players.length){

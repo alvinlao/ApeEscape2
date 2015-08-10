@@ -67,14 +67,11 @@ var endGame = function() {
 exports.endGame = endGame;
 
 var updateGame = function() {
+    console.log(".".red);
     //Update only jailers
     for(var i=0;i<gameState.players.length;i++){
         if(gameState.players[i].role === ROLE.JAILER){
-            console.log("updating game");
-            gameState.players[i].socket.emit("game_state",{
-                state: gameState.state,
-                players: gameState.players
-            });
+            gameState.players[i].socket.emit("game_state",gameState.getInGameState());
         }
     }
 };

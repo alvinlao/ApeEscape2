@@ -46,7 +46,7 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer2.visible = false;
+    layer2.visible = (player.role === ROLE_JAILER);
     //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles
@@ -71,7 +71,15 @@ function update() {
 
     game.physics.arcade.collide(ape, layer1);
 
-    move(ape);
+    if (player.role === ROLE_APE){
+
+       move(ape);
+
+    } else if (player.role === ROLE_JAILER){
+
+
+
+    }
 
     checkTraps(activeTraps);
 
@@ -129,6 +137,7 @@ function activateTrap(trap) {
 
     newTrap.expiryTime = expiryTime;
     
+    game.add.existing(newTrap);
     newTrap.deploy();
 
     activeTraps.push(newTrap);
@@ -157,4 +166,9 @@ function move(ape) {
     if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
         ape.stop();
     } 
+}
+
+function setObjectPosition(object,position){
+    object.x = position.x;
+    object.y = position.y;
 }
