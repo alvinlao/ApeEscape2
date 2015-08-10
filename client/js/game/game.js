@@ -1,13 +1,21 @@
 // Our game
 function Game() {
-    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
+    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { create: create, update: update });
 }
 
 Game.prototype = Object.create(Phaser.Game.prototype);
 Game.constructor = Game;
 
 var game = new Game();
+game.state.add("boot", BootState, true);
+game.state.add("load", LoadState, true);
+game.state.add("lobby", LobbyState, true);
+game.state.add("play", PlayState, true);
+game.state.add("end", EndState, true);
 
+game.state.start("boot");
+
+/*
 function preload() {
 	game.stage.backgroundColor = '#85b5e1';
 
@@ -17,9 +25,9 @@ function preload() {
     game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
     game.load.image('fireTrap', 'assets/diamond.png');
 }
+*/
 
 function create() {
-
     // TODO
     currentStage = STAGE_01;
 
