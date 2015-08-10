@@ -4,6 +4,17 @@ function Ape(game, x, y, key) {
 
 	this.powerUps = [];
 
+    game.physics.enable(this);
+
+    // Physics
+    this.body.bounce.y = 0.05;
+    this.body.linearDamping = 0;
+    this.body.collideWorldBounds = true;
+
+    // Input
+    this.inputEnabled = true;
+    this.input.useHandCursor = true; //if you want a hand cursor
+
     // Setup animations
     // Frames 1 and 2
     this.animations.add("walk", [0, 1], 10);

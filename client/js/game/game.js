@@ -24,6 +24,7 @@ function create() {
     currentStage = STAGE_01;
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.arcade.gravity.y = gravity;
 
     game.stage.backgroundColor = '#ffffff';
 
@@ -47,29 +48,13 @@ function create() {
 
     ape = new Ape(game, 19, 1000, "ape");
     game.add.existing(ape);
+
     //add the traps
     parseMap(currentStage);
-
-    game.physics.enable(ape);
-
-    game.physics.arcade.gravity.y = gravity;
-
-    ape.body.bounce.y = 0.05;
-    ape.body.linearDamping = 0;
-    ape.body.collideWorldBounds = true;
 
     game.camera.follow(ape);
 
     cursors = game.input.keyboard.createCursorKeys();
-
-    ape.inputEnabled = true;
-    ape.input.useHandCursor = true; //if you want a hand cursor
-    ape.events.onInputDown.add(yourFunction, this);
-
-    function yourFunction(event, sprite)
-    {
-        ape.body.velocity.y -= 200;
-    }
 }
 
 function update() {
