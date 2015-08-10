@@ -4,6 +4,7 @@ var lobbyManager = require("./interface/lobbyManager");
 var apeManager = require("./game/apeManager");
 var gameState = require("./gameState");
 var ROLE        = require("./models/ROLE");
+var socketHandler = require("./socketHandler");
 
 //Used to update the game/lobby on intervals
 var updateInterval;
