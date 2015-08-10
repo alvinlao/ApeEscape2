@@ -70,8 +70,14 @@ function handleGameState(state){
                         apeName.x = nameXPos;
                         apeName.y = yPos - 65;
                     }
-                    ape.x = xPos;
-                    ape.y = yPos;
+
+
+                    //TWEEN DAT
+                    game.add.tween(ape).to({
+                        x: [xPos],
+                        y: [yPos]
+                    },30).interpolation(Phaser.Math.bezierInterpolation).start();
+
                     ape.scale = scale;
                     ape.frame = state.players[player].state.frame;
                     break;
