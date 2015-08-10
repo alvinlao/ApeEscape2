@@ -4,7 +4,6 @@ var lobbyManager = require("./interface/lobbyManager");
 var apeManager = require("./game/apeManager");
 var gameState = require("./gameState");
 var ROLE        = require("./models/ROLE");
-var io = require("socket.io");
 
 //Used to update the game/lobby on intervals
 var updateInterval;
@@ -38,13 +37,13 @@ var startLevel = function(levelNumber, traps){
 
     //Update the traps
     gameState.traps = traps;
-    io.emit("level_start", 1);
+    socketHandler.io.emit("level_start", 1);
 }
 exports.startLevel = startLevel;
 
 var endGame = function() {
     clearInterval(updateInterval);
-    io.emit("game_end",true);
+    socketHandler.io.emit("game_end",true);
     for(var i=0;i<gameState.players.length;i++){
         gameState.players[i].role = ROLE.NONE;
         gameState.players[i].gameState = {};
