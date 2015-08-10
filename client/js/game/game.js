@@ -135,11 +135,8 @@ function activateTrap(trap) {
     }
 
     newTrap.expiryTime = expiryTime;
-
-    game.add.existing(newTrap);
-
-    game.physics.arcade.enable(newTrap);
-    newTrap.body.moves = false;
+    
+    newTrap.deploy();
 
     activeTraps.push(newTrap);
 }

@@ -8,6 +8,12 @@ function Trap(game, x, y, key) {
     this.effect = function() {
     	ape.kill();
     }
+
+    this.deploy = function() {
+	    game.add.existing(this);
+	    game.physics.arcade.enable(this);
+	    this.body.moves = false;
+    }
 }
 
 Trap.prototype = Object.create(Entity.prototype);
