@@ -15,7 +15,7 @@ module.exports = function Player(name,socket) {
 	this.isReady = false;
 
 	//Either a Jailer or Ape object
-	this.gameState = {};
+	this.state = {};
 	this.role = ROLE.NONE;
 
 	//Call to get the basic information of a user in the lobby
@@ -32,18 +32,25 @@ module.exports = function Player(name,socket) {
 		return {
 			name: this.name,
 			id: this.id,
-			gameState: this.gameState
+			role: this.role,
+			state: this.state
 		};
 	}
 
 	//Set on game start
 	this.setApe = function(){
 		this.role = ROLE.APE;
-		this.gameState = new Ape();
+		this.state = new Ape();
 	}
 
 	this.setJailer = function(){
 		this.role = ROLE.JAILER;
-		this.gameState = new Jailer();
+		this.state = new Jailer();
+	}
+
+	//Should happen in the lobby
+	this.clean = function(){
+		this.role = ROLE.NONE;
+		this.state = {};
 	}
 }

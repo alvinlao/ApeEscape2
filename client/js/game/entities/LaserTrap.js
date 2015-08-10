@@ -1,7 +1,13 @@
 function LaserTrap(game, x, y, key, direction) {
     Trap.call(this, game, x, y, key);
 
-        this.direction = 'up';
+    this.direction = 'up';
+
+    this.animations.add("blaze", [0, 1, 2, 3, 4, 5], 10);
+
+    this.position.y -= 64;
+
+    this.anchor.setTo(0.5, 1.1);
 
     switch (direction){
     	case 11:
@@ -21,6 +27,7 @@ function LaserTrap(game, x, y, key, direction) {
     this.deploy = function(){
 	    game.physics.arcade.enable(this);
 	    this.body.moves = false;
+        this.animations.play("blaze", 10, true);
     }
 }
 

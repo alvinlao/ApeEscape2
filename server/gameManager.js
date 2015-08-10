@@ -23,6 +23,9 @@ var startGame = function() {
             gameState.players[i].setApe();
             gameState.players[i].socket.emit("player_role",ROLE.APE);
 
+            //Listen for input
+            apeManager.setupEvents(gameState.players[i]);
+
             //Wait for the ape to give us level info
             console.log("Game is ready, waiting for Ape.".cyan + " (" + gameState.players[i].name + ")");
             gameState.players[i].socket.on("level_start",startLevel);
@@ -39,7 +42,7 @@ var startLevel = function(levelData){
         //First time
         gameState.state = STATE.GAME;
         clearInterval(updateInterval);
-        updateInterval = setInterval(updateGame,100);
+        updateInterval = setInterval(updateGame,1);
 
         gameState.state = 1;
 
@@ -63,8 +66,25 @@ var endGame = function() {
         gameState.players[i].role = ROLE.NONE;
         gameState.players[i].gameState = {};
     }
+
+    if(gameState.state === STATE.GAME){
+        //Clean up!
+        gameState.state = STATE.GAME_OVER;
+        setTimeout(function(){
+            gameState.state = STATE.LOBBY;
+            cleanPlayerData();
+            console.log("Game -> Lobby".cyan);
+        },1);//Change later
+        console.log("Game ended. ".cyan);
+    }
 };
 exports.endGame = endGame;
+
+var cleanPlayerData = function(){
+    for(var i=0;i<gameState.players.length;i++){
+        gameState.players[i].clean();
+    }
+}
 
 var updateGame = function() {
     console.log(".".red);

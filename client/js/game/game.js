@@ -1,3 +1,9 @@
+// GLOBALS
+var ape;
+var map;
+
+var remoteApe = {};
+
 // Our game
 function Game() {
     Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game");
@@ -12,10 +18,10 @@ game.state.add("load", LoadState, true);
 game.state.add("lobby", LobbyState, true);
 game.state.add("play", PlayState, true);
 game.state.add("end", EndState, true);
+
 game.state.add("level1", Level, true);
 
 game.state.start("boot");
-
 
 function checkTraps(activeTraps) {
     activeTraps.forEach(function (trap){
@@ -97,10 +103,8 @@ function move(ape) {
     // If they push both left and right, stop them.
     if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
         ape.stop();
-    } 
-}
+    }
 
-function setObjectPosition(object,position){
-    object.x = position.x;
-    object.y = position.y;
+    //Let everyone else know!
+    updateApePosition(ape);
 }

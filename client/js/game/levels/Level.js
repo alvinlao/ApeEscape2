@@ -33,6 +33,11 @@ function Level() {
         ape = new Ape(game, 19, 1000, "ape");
         game.add.existing(ape);
 
+        if (player.role === ROLE_JAILER) {
+            ape.anchor.setTo(0.5,1);
+            ape.body.gravity = false;
+        }
+
         //add the traps
         parseMap(currentStage);
 
@@ -44,7 +49,16 @@ function Level() {
     this.update = function() {
         console.log("LEVEL: update");
         game.physics.arcade.collide(ape, layer1);
-        move(ape);
+
+        if (player.role === ROLE_APE){
+           move(ape);
+        } else if (player.role === ROLE_JAILER){
+            ape.x = remoteApe.x;
+            ape.y = remoteApe.y;
+            ape.scale = remoteApe.scale;
+            ape.frame = remoteApe.frame;
+        }
+
         checkTraps(activeTraps);
     }
 }
