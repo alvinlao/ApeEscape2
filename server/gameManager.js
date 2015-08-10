@@ -74,7 +74,7 @@ var endGame = function() {
             gameState.state = STATE.LOBBY;
             cleanPlayerData();
             console.log("Game -> Lobby".cyan);
-        },15000);
+        },1);//Change later
         console.log("Game ended. ".cyan);
     }
 };
