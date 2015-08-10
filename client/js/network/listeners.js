@@ -73,10 +73,14 @@ function handleGameState(state){
 
 
                     //TWEEN DAT
-                    game.add.tween(ape).to({
+                    if(ape.currentTween){
+                        game.tween.remove(ape.currentTween);
+                    }
+
+                    ape.currentTween = game.add.tween(ape).to({
                         x: [xPos],
                         y: [yPos]
-                    },3).interpolation(Phaser.Math.bezierInterpolation).start();
+                    },30).interpolation(Phaser.Math.bezierInterpolation).start();
 
                     ape.scale = scale;
                     ape.frame = state.players[player].state.frame;
