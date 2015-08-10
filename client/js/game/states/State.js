@@ -1,4 +1,5 @@
-function State(game) {
+function State() {
+    Phaser.State.call(this);
 }
 
 State.prototype = Object.create(Phaser.State.prototype);
