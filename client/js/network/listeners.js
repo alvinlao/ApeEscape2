@@ -76,7 +76,7 @@ function handleGameState(state){
                     game.add.tween(ape).to({
                         x: [xPos],
                         y: [yPos]
-                    },30).interpolation(Phaser.Math.bezierInterpolation).start();
+                    },3).interpolation(Phaser.Math.bezierInterpolation).start();
 
                     ape.scale = scale;
                     ape.frame = state.players[player].state.frame;

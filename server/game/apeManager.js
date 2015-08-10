@@ -1,3 +1,5 @@
+var gameManager = require("../gameManager");
+
 var setupEvents = function(player){
 	/*
 	 * Event: ape_move
@@ -7,6 +9,8 @@ var setupEvents = function(player){
 		player.state.y = position.y;
 		player.state.frame = position.frame;
 		player.state.scale = position.scale;
+
+		gameManager.updateGame();
 	}
 
 	/*
