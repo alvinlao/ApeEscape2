@@ -11,6 +11,8 @@ var layer3;
 var ape;
 var cursors;
 
+var apeName;
+
 var currentStage;
 
 var activeTraps = [];

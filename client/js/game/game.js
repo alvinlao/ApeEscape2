@@ -47,7 +47,6 @@ function create() {
     
     layer1 = map.createLayer('Floor');
     layer2 = map.createLayer('Traps');
-    layer2.visible = (player.role === ROLE_JAILER);
     //layer3 = map.createLayer('FinishLine');
 
     // Un-comment this on to see the collision tiles

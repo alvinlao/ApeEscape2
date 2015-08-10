@@ -1,5 +1,5 @@
-function FallingPlatformTrap() {
-    Trap.call(this);
+function FallingPlatformTrap(game, x, y, key) {
+    Trap.call(this, game, x, y, key);
 }
 
 FallingPlatformTrap.prototype = Object.create(Trap.prototype);

@@ -27,7 +27,7 @@ function handleLobbyUpdate(response) {
 
 // Role is a enum (see roles.js)
 function handlePlayerRole(role) {
-    console.log("My role is: "+role);
+    console.log("My role is: " + role);
     player.role = role;
 
     switch(player.role){
@@ -35,8 +35,10 @@ function handlePlayerRole(role) {
             updateLevelStart();
             break;
         case ROLE_JAILER:
-            ape.anchor.setTo(0.5,1);
-            ape.body.gravity = false;
+            ape.anchor.setTo(0.5, 1);
+            ape.body.move = false;
+            layer2.visible = true;
+            apeName = game.add.text(0, 0, "", { font: "12px Arial", fill: "#000000", align: "center" });
             break;
     }
 }
@@ -52,9 +54,19 @@ function handleGameState(state){
         for(var player in state.players){
             switch(state.players[player].role){
                 case ROLE_APE:
-                    ape.x = state.players[player].state.x;
-                    ape.y = state.players[player].state.y;
-                    ape.scale = state.players[player].state.scale;
+                    var xPos = state.players[player].state.x;
+                    var yPos = state.players[player].state.y;
+                    var scale = state.players[player].state.scale;
+
+                    if(apeName){
+                        apeName.text = state.players[player].name;
+                        var nameXPos = Math.floor(xPos + ape.width / 2) - ((scale.x === 1) ? ape.width : 0);
+                        apeName.x = nameXPos;
+                        apeName.y = yPos - 65;
+                    }
+                    ape.x = xPos;
+                    ape.y = yPos;
+                    ape.scale = scale;
                     ape.frame = state.players[player].state.frame;
                     break;
                 case ROLE_JAILER:

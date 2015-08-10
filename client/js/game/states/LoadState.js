@@ -7,7 +7,8 @@ function LoadState() {
         this.game.load.image('tiles', 'assets/tilesheet.png');
         this.game.load.image('player', 'assets/phaser-dude.png');
         this.game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
-        this.game.load.image('fireTrap', 'assets/diamond.png');
+        this.game.load.spritesheet('flameTrap', 'assets/fire.png', 64, 64, 4);
+        this.game.load.spritesheet('laserTrap', 'assets/beam.png', 64, 320, 6);
     }
 
     this.create = function () {
