@@ -154,3 +154,8 @@ function move(ape) {
         ape.stop();
     } 
 }
+
+function setObjectPosition(object,position){
+    object.x = position.x;
+    object.y = position.y;
+}
