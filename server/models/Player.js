@@ -47,4 +47,10 @@ module.exports = function Player(name,socket) {
 		this.role = ROLE.JAILER;
 		this.state = new Jailer();
 	}
+
+	//Should happen in the lobby
+	this.clean = function(){
+		this.role = ROLE.NONE;
+		this.state = {};
+	}
 }

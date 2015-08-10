@@ -66,8 +66,25 @@ var endGame = function() {
         gameState.players[i].role = ROLE.NONE;
         gameState.players[i].gameState = {};
     }
+
+    if(gameState.state === STATE.GAME){
+        //Clean up!
+        gameState.state = STATE.GAME_OVER;
+        setTimeout(function(){
+            gameState.state = STATE.LOBBY;
+            cleanPlayerData();
+            console.log("Game -> Lobby".cyan);
+        },15000);
+        console.log("Game ended. ".cyan);
+    }
 };
 exports.endGame = endGame;
+
+var cleanPlayerData = function(){
+    for(var i=0;i<gameState.players.length;i++){
+        gameState.players[i].clean();
+    }
+}
 
 var updateGame = function() {
     console.log(".".red);

@@ -39,11 +39,16 @@ exports.addPlayer = function(playerName,socket){
     socket.on("player_ready",playerReady);
 };
 
-exports.removePlayer = function(player) {
+exports.removePlayer = function(socket) {
     for(var i=0;i<gameState.players.length;i++){
-        if(gameState.players[i].name === player.name){
-            gameState.players.splice(i,1);
-            console.log(player.name + " has joined the lobby.".magenta);
+        //Check to see if the sockets match
+        if(gameState.players[i].socket.id === socket.id){
+            var removedPlayer = gameState.players.splice(i,1)[0];
+            console.log(removedPlayer.name + " has left the lobby.".magenta);
+
+            //Stop the game if it's been started
+            gameManager.endGame();
+
             break;
         }
     }
