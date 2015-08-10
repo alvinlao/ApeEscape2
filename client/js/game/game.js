@@ -15,7 +15,8 @@ function preload() {
     game.load.image('tiles', 'assets/tilesheet.png');
     game.load.image('player', 'assets/phaser-dude.png');
     game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
-    game.load.image('fireTrap', 'assets/diamond.png');
+    game.load.spritesheet('flameTrap', 'assets/fire.png', 64, 64, 6);
+    game.load.spritesheet('laserTrap', 'assets/beam.png', 64, 320, 6);
 }
 
 function create() {
