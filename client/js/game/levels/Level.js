@@ -35,7 +35,8 @@ function Level() {
 
         if (player.role === ROLE_JAILER) {
             ape.anchor.setTo(0.5,1);
-            ape.body.gravity = false;
+            ape.body.allowGravity = false;
+            ape.body.velocity.y = 0;
             layer2.visible = true;
             apeName = game.add.text(0, 0, "", { font: "12px Arial", fill: "#000000", align: "center" });
         }

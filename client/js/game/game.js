@@ -82,29 +82,31 @@ function activateTrap(trap) {
 }
 
 function move(ape) {
-	ape.body.velocity.x = 0;
+    if (player.role === ROLE_APE) {
+        ape.body.velocity.x = 0;
 
-    if (cursors.left.isDown) {
-        ape.walk(-speed);
-    } else if (cursors.right.isDown) {
-        ape.walk(speed);
-    } else {
-        ape.stop();
-    }
-
-    if (cursors.up.isDown) {
-        ape.jump();
-
-        if (ape.body.onFloor()) {
-            ape.body.velocity.y = -jumpPower;
+        if (cursors.left.isDown) {
+            ape.walk(-speed);
+        } else if (cursors.right.isDown) {
+            ape.walk(speed);
+        } else {
+            ape.stop();
         }
-    }
 
-    // If they push both left and right, stop them.
-    if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
-        ape.stop();
-    }
+        if (cursors.up.isDown) {
+            ape.jump();
 
-    //Let everyone else know!
-    updateApePosition(ape);
+            if (ape.body.onFloor()) {
+                ape.body.velocity.y = -jumpPower;
+            }
+        }
+
+        // If they push both left and right, stop them.
+        if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
+            ape.stop();
+        }
+
+        //Let everyone else know!
+        updateApePosition(ape);
+    }
 }
