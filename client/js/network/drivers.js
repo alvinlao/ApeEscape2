@@ -17,3 +17,16 @@ function updateLevelStart() {
 
     socket.emit("level_start", data);
 }
+
+//Update the ape's position (only if you're the ape)
+function updateApePosition(apeCharacter){
+	if(window.player.role === ROLE_APE){
+		var position = {
+			"x": apeCharacter.x,
+			"y": apeCharacter.y,
+			"frame": apeCharacter.frame,
+			"scale": apeCharacter.scale
+		}
+		socket.emit("ape_move",position);
+	}
+}

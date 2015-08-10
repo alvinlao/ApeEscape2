@@ -23,6 +23,9 @@ var startGame = function() {
             gameState.players[i].setApe();
             gameState.players[i].socket.emit("player_role",ROLE.APE);
 
+            //Listen for input
+            apeManager.setupEvents(gameState.players[i]);
+
             //Wait for the ape to give us level info
             console.log("Game is ready, waiting for Ape.".cyan + " (" + gameState.players[i].name + ")");
             gameState.players[i].socket.on("level_start",startLevel);
@@ -39,7 +42,7 @@ var startLevel = function(levelData){
         //First time
         gameState.state = STATE.GAME;
         clearInterval(updateInterval);
-        updateInterval = setInterval(updateGame,100);
+        updateInterval = setInterval(updateGame,10);
 
         gameState.state = 1;
 

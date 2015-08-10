@@ -1,19 +1,21 @@
-var setupEvents = function(player,socket){
+var setupEvents = function(player){
 	/*
 	 * Event: ape_move
 	 */
 	var apeMove = function(position){
-		player.gameState.x = position.x;
-		player.gameState.y = position.y;
+		player.state.x = position.x;
+		player.state.y = position.y;
+		player.state.frame = position.frame;
+		player.state.scale = position.scale;
 	}
 
 	/*
 	 * Event: ape_shield
 	 */
 	var apeShield = function(){
-		player.gameState.shield = true;
+		player.state.shield = true;
 		setTimeout(function(){
-			player.gameState.shield = false;
+			player.state.shield = false;
 		}, 3000);
 	}
 
@@ -21,24 +23,24 @@ var setupEvents = function(player,socket){
 	 * Event: ape_death
 	 */
 	var apeDeath = function(){
-		player.gameState.isDead = true;
+		player.state.isDead = true;
 	}
 
 	/*
 	 * Event: ape_dash
 	 */
 	var apeDash = function(){
-		player.gameState.dash = true;
+		player.state.dash = true;
 		setTimeout(function(){
-			player.gameState.dash = false;
+			player.state.dash = false;
 		}, 3000);
 	}
 
 	//Set up the sockets
-	socket.on("ape_move",apeMove);
-	socket.on("ape_shield",apeShield);
-	socket.on("ape_death",apeDeath);
-	socket.on("ape_dash",apeDash);
+	player.socket.on("ape_move",apeMove);
+	player.socket.on("ape_shield",apeShield);
+	player.socket.on("ape_death",apeDeath);
+	player.socket.on("ape_dash",apeDash);
 }
 
 exports.setupEvents = setupEvents;

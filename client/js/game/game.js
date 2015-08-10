@@ -156,10 +156,8 @@ function move(ape) {
     // If they push both left and right, stop them.
     if (cursors.left.isDown && cursors.right.isDown && !cursors.up.isDown) {
         ape.stop();
-    } 
-}
+    }
 
-function setObjectPosition(object,position){
-    object.x = position.x;
-    object.y = position.y;
+    //Let everyone else know!
+    updateApePosition(ape);
 }
