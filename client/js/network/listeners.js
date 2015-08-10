@@ -30,16 +30,11 @@ function handlePlayerRole(role) {
     console.log("My role is: " + role);
     player.role = role;
 
-    switch(player.role){
-        case ROLE_APE:
-            updateLevelStart();
-            break;
-        case ROLE_JAILER:
-            ape.anchor.setTo(0.5, 1);
-            ape.body.move = false;
-            layer2.visible = true;
-            apeName = game.add.text(0, 0, "", { font: "12px Arial", fill: "#000000", align: "center" });
-            break;
+    game.state.start("play");
+    if (role === ROLE_APE) {
+        updateLevelStart();
+    } else {
+        console.log("I AM A JAILER");
     }
 }
 
@@ -55,14 +50,17 @@ function handleGameState(state){
     var currentUpdate = new Date();
     //console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
     lastUpdate = currentUpdate;
+    console.log("game state");
 
     if (window.player.role === ROLE_JAILER){
         for(var player in state.players){
             switch(state.players[player].role){
                 case ROLE_APE:
-                    var xPos = state.players[player].state.x;
-                    var yPos = state.players[player].state.y;
-                    var scale = state.players[player].state.scale;
+                    remoteApe.x = state.players[player].state.x;
+                    remoteApe.y = state.players[player].state.y;
+                    remoteApe.scale = state.players[player].state.scale;
+                    remoteApe.frame = state.players[player].state.frame;
+                    remoteApe.name = state.players[player].name;
 
                     if(apeName){
                         apeName.text = state.players[player].name;

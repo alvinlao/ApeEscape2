@@ -1,6 +1,12 @@
+// GLOBALS
+var ape;
+var map;
+
+var remoteApe = {};
+
 // Our game
 function Game() {
-    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game", { create: create, update: update });
+    Phaser.Game.call(this, 800, 600, Phaser.AUTO, "game");
 }
 
 Game.prototype = Object.create(Phaser.Game.prototype);
@@ -13,77 +19,9 @@ game.state.add("lobby", LobbyState, true);
 game.state.add("play", PlayState, true);
 game.state.add("end", EndState, true);
 
+game.state.add("level1", Level, true);
+
 game.state.start("boot");
-
-/*
-function preload() {
-	game.stage.backgroundColor = '#85b5e1';
-
-    game.load.tilemap('level1', 'js/game/levels/level1/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/tilesheet.png');
-    game.load.image('player', 'assets/phaser-dude.png');
-    game.load.spritesheet("ape", "assets/ape_spritesheet.png", 50, 50, 6);
-    game.load.spritesheet('flameTrap', 'assets/fire.png', 64, 64, 6);
-    game.load.spritesheet('laserTrap', 'assets/beam.png', 64, 320, 6);
-}
-*/
-
-function create() {
-    // TODO
-    currentStage = STAGE_01;
-
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = gravity;
-
-    game.stage.backgroundColor = '#ffffff';
-
-    map = game.add.tilemap('level1');
-
-    map.addTilesetImage('tilesheet', 'tiles');
-
-    map.setCollision(5);
-    map.setCollision(7);
-    map.setCollision(14);
-    
-    layer1 = map.createLayer('Floor');
-    layer2 = map.createLayer('Traps');
-    //layer3 = map.createLayer('FinishLine');
-
-    // Un-comment this on to see the collision tiles
-    //layer1.debug = true;
-
-    layer1.resizeWorld();
-
-    ape = new Ape(game, 19, 1000, "ape");
-    game.add.existing(ape);
-
-    //add the traps
-    parseMap(currentStage);
-
-    game.camera.follow(ape);
-
-    cursors = game.input.keyboard.createCursorKeys();
-}
-
-function update() {
-
-    var self = this;
-
-    game.physics.arcade.collide(ape, layer1);
-
-    if (player.role === ROLE_APE){
-
-       move(ape);
-
-    } else if (player.role === ROLE_JAILER){
-
-
-
-    }
-
-    checkTraps(activeTraps);
-
-}
 
 function checkTraps(activeTraps) {
     activeTraps.forEach(function (trap){
