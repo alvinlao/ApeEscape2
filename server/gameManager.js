@@ -4,10 +4,17 @@ var lobbyManager = require("./interface/lobbyManager");
 var apeManager = require("./game/apeManager");
 var gameState = require("./gameState");
 var ROLE        = require("./models/ROLE");
-var socketHandler = require("./socketHandler");
 
 //Used to update the game/lobby on intervals
 var updateInterval;
+
+//Link to the current io instance
+var io;
+
+var linkIO = function(ioInstance){
+    io = ioInstance;
+}
+exports.linkIO = linkIO;
 
 var startGame = function() {
     var theApe = parseInt(Math.random()*gameState.players.length);
@@ -27,24 +34,26 @@ var startGame = function() {
 };
 exports.startGame = startGame;
 
-var startLevel = function(levelNumber, traps){
+var startLevel = function(levelData){
     if(gameState.state !== STATE.GAME){
         //First time
         gameState.state = STATE.GAME;
         clearInterval(updateInterval);
         updateInterval = setInterval(updateGame,100);
     }
-    console.log("Starting level!".cyan);
+    console.log("Starting level ".cyan + levelData.levelNumber + "!".cyan);
 
     //Update the traps
-    gameState.traps = traps;
-    socketHandler.io.emit("level_start", 1);
+    gameState.traps = levelData.traps;
+
+    //Let everyone know the level started
+    io.emit("level_start", levelData.levelNumber);
 }
 exports.startLevel = startLevel;
 
 var endGame = function() {
     clearInterval(updateInterval);
-    socketHandler.io.emit("game_end",true);
+    io.emit("game_end",true);
     for(var i=0;i<gameState.players.length;i++){
         gameState.players[i].role = ROLE.NONE;
         gameState.players[i].gameState = {};

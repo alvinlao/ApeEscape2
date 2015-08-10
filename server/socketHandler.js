@@ -1,6 +1,7 @@
 var io          = require("socket.io");
 
 var lobbyManager= require("./interface/lobbyManager");
+var gameManager = require("./gameManager");
 
 
 var onConnect = function(socket){
@@ -24,7 +25,8 @@ var setupIO = function(server){
 
     io = io(server);
     io.on("connection",onConnect);
+
+    gameManager.linkIO(io);
 }
 
 exports.setupIO = setupIO;
-exports.io = io;
