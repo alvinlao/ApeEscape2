@@ -19,6 +19,8 @@ function Level() {
         map.setCollision(5);
         map.setCollision(7);
         map.setCollision(14);
+
+        map.setTileIndexCallback(6, die, this);
         
         layer1 = map.createLayer('Floor');
         layer2 = map.createLayer('Traps');
@@ -33,15 +35,53 @@ function Level() {
         ape = new Ape(game, 19, 1000, "ape");
         game.add.existing(ape);
 
+        //add the traps
+        parseMap(currentStage);
+
         if (player.role === ROLE_JAILER) {
             ape.anchor.setTo(0.5,1);
             ape.body.gravity = false;
-            layer2.visible = true;
             apeName = game.add.text(0, 0, "", { font: "12px Arial", fill: "#000000", align: "center" });
-        }
 
-        //add the traps
-        parseMap(currentStage);
+            console.log(traps);
+
+            traps.forEach(function (trap) {
+                            
+                var width = currentStage.width;
+
+                var dx = currentStage.tilewidth;
+                var dy = currentStage.tileheight;
+
+                var i = trap.index;
+                var trapType = trap.type;
+
+                var x = dx * (i % width);
+                var y = dy * (Math.floor(i / width));
+
+                var expiryTime = 90;
+
+                var newTrap; 
+
+                switch (trapType) {
+                    case 8:
+                        newTrap = new FlameTrapActivator(game, x, y, 'flameTrapActivator');                        
+                        break;
+                    case 9:
+                        newTrap = new FallingPlatformTrapActivator(game, x, y, 'fallingPlatformTrapActivator');
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                        newTrap = new LaserTrapActivator(game, x, y, 'laserTrapActivator', trapType);
+                        break;
+                }
+                if (newTrap) {
+                    game.add.existing(newTrap);
+                    trapActivators.push(newTrap);
+                }
+            });
+        }
 
         game.camera.follow(ape);
 

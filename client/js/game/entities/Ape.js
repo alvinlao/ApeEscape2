@@ -13,7 +13,7 @@ function Ape(game, x, y, key) {
 
     // Input
     this.inputEnabled = true;
-    this.input.useHandCursor = true; //if you want a hand cursor
+    this.input.useHandCursor = false; //if you want a hand cursor
 
     // Setup animations
     // Frames 1 and 2

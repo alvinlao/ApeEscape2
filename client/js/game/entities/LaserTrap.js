@@ -33,3 +33,10 @@ function LaserTrap(game, x, y, key, direction) {
 
 LaserTrap.prototype = Object.create(Trap.prototype);
 LaserTrap.constructor = LaserTrap;
+
+function LaserTrapActivator(game, x, y, key, direction) {
+    TrapActivator.call(this, game, x, y, key);
+}
+
+LaserTrapActivator.prototype = Object.create(TrapActivator.prototype);
+LaserTrapActivator.constructor = LaserTrapActivator;

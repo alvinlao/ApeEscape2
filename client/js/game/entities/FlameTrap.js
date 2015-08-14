@@ -12,3 +12,11 @@ function FlameTrap(game, x, y, key) {
 
 FlameTrap.prototype = Object.create(Trap.prototype);
 FlameTrap.constructor = FlameTrap;
+
+
+function FlameTrapActivator(game, x, y, key) {
+	TrapActivator.call(this, game, x, y, key);
+}
+
+FlameTrapActivator.prototype = Object.create(TrapActivator.prototype);
+FlameTrapActivator.constructor = FlameTrapActivator;

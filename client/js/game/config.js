@@ -16,3 +16,5 @@ var apeName;
 var currentStage;
 
 var activeTraps = [];
+
+var trapActivators = [];
