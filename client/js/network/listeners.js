@@ -50,6 +50,7 @@ function handleGameState(state){
     var currentUpdate = new Date();
     //console.log("Last update "+(currentUpdate - lastUpdate) + "ms ago");
     lastUpdate = currentUpdate;
+    console.log("game state");
 
     if (window.player.role === ROLE_JAILER){
         for(var player in state.players){
@@ -59,9 +60,28 @@ function handleGameState(state){
                     remoteApe.y = state.players[player].state.y;
                     remoteApe.scale = state.players[player].state.scale;
                     remoteApe.frame = state.players[player].state.frame;
-                    //remoteApe.name = state.players[player].state.name;
-                    remoteApe.name = "BOB";
+                    remoteApe.name = state.players[player].name;
 
+                    if(apeName){
+                        apeName.text = state.players[player].name;
+                        var nameXPos = Math.floor(xPos + ape.width / 2) - ((scale.x === 1) ? ape.width : 0);
+                        apeName.x = nameXPos;
+                        apeName.y = yPos - 65;
+                    }
+
+
+                    //TWEEN DAT
+                    if(ape.currentTween){
+                        game.tweens.remove(ape.currentTween);
+                    }
+
+                    ape.currentTween = game.add.tween(ape).to({
+                        x: [xPos],
+                        y: [yPos]
+                    },30).interpolation(Phaser.Math.bezierInterpolation).start();
+
+                    ape.scale = scale;
+                    ape.frame = state.players[player].state.frame;
                     break;
                 case ROLE_JAILER:
                     break;
