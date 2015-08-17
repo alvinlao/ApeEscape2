@@ -37,7 +37,7 @@ function checkTraps(activeTraps) {
     });
 }
 
-var die = function die(){
+function die(){
     ape.kill();
 }
 

@@ -16,6 +16,10 @@ FlameTrap.constructor = FlameTrap;
 
 function FlameTrapActivator(game, x, y, key) {
 	TrapActivator.call(this, game, x, y, key);
+
+	this.unleash = function() {
+		this.kill();
+	}
 }
 
 FlameTrapActivator.prototype = Object.create(TrapActivator.prototype);

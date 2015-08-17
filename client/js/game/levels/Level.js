@@ -89,7 +89,6 @@ function Level() {
     }
 
     this.update = function() {
-        console.log("LEVEL: update");
         game.physics.arcade.collide(ape, layer1);
 
         if (player.role === ROLE_APE){
