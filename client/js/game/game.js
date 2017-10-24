@@ -37,7 +37,7 @@ function checkTraps(activeTraps) {
     });
 }
 
-var die = function die(){
+function die(){
     ape.kill();
 }
 
@@ -106,7 +106,6 @@ function move(ape) {
             ape.stop();
         }
 
-        //Let everyone else know!
-        updateApePosition(ape);
-    }
+    //Let everyone else know!
+    updateApePosition(ape);
 }

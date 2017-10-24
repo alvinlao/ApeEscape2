@@ -16,7 +16,7 @@ function parseMap(stage) {
 		}
 	}
 
-	for (var i = 0; i< trapData.length; i++){
+	for (var i = 0; i < trapData.length; i++){
 		if (trapData[i] !== 0){
 			var trap = {
 				"type": trapData[i],
